@@ -1,0 +1,23 @@
+{
+  "name": "skill-vacation",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "core-js": "^3.8.3",
+    "nuxt": "^2.14.12",
+    "@fortawesome/fontawesome-free": "^5.15.1",
+    "@fortawesome/vue-fontawesome": "^2.0.0",
+    "@nuxtjs/axios": "^5.12.2",
+    "axios": "^0.21.0",
+    "bootstrap": "^4.5.3",
+    "bootstrap-select": "^1.13.18",
+    "bootstrap-vue": "^2.19.0"
+  },
+  "devDependencies": {}
+}
