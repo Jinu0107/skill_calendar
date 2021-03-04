@@ -1,8 +1,18 @@
 <template>
   <div class="calendar_container">
-    <img class="month_controller" v-on:click="changeCalendar(-1)" src="/imgs/prev.png" alt="">
-    <img class="month_controller" v-on:click="changeCalendar(1)" src="/imgs/next.png" alt="">
     <div id="calendar">
+      <img
+        class="month_controller"
+        v-on:click="changeCalendar(-1)"
+        src="/imgs/prev.png"
+        alt=""
+      />
+      <img
+        class="month_controller"
+        v-on:click="changeCalendar(1)"
+        src="/imgs/next.png"
+        alt=""
+      />
       <div class="calendar_top">
         <p
           class="prev_year year_controller"
@@ -69,7 +79,9 @@ export default {
     };
   },
   methods: {
-    drawDate() {
+    drawCalendar() {
+      // draw Calendar function
+
       let date = this.newDate(this.now_month);
       let txt = `${this.month_names[
         date.getMonth()
@@ -93,6 +105,7 @@ export default {
         lastDate = 29;
         this.list[1] = 29;
       }
+
       for (let i = 1; i <= 6; i++) {
         let tr_arr = [];
         for (let j = 1; j <= 7; j++) {
@@ -102,28 +115,37 @@ export default {
             td_obj = { today: false, date: "" };
           else {
             td_obj = { today: false, date: dNum };
-            if (this.newDate(month , dNum).getTime() == this.newDate(new Date().getMonth() , new Date().getDate()).getTime()) td_obj.today = true;
+            if (
+              year == new Date().getFullYear() &&
+              month == new Date().getMonth() &&
+              dNum == new Date().getDate()
+            ) {
+              td_obj.today = true;
+            }
             dNum++;
           }
-
           tr_arr.push(td_obj);
         }
         this.calendar_item_arr.push(tr_arr);
       }
     },
+
     newDate(month, date = 1) {
       let n = new Date();
       n.setDate(date);
       n.setMonth(month);
       return n;
     },
+
     changeCalendar(num) {
+      // change Calendar
       this.now_month += num;
-      this.drawDate();
+      this.drawCalendar();
     },
   },
   mounted() {
-    this.drawDate();
+    //start
+    this.drawCalendar();
   },
   components: {
     CalendarTdComponent,
@@ -142,21 +164,8 @@ export default {
   justify-content: center;
 }
 
-.month_controller {
-  position: absolute;
-  width: 25x;
-  height: 25px;
-  cursor: pointer;
-}
-
-.month_controller:nth-child(1) {
-  left: 5em;
-}
-.month_controller:nth-child(2) {
-  right: 5em;
-}
-
 #calendar {
+  position: relative;
   width: 70%;
   max-width: 900px;
   margin: auto;
@@ -167,7 +176,6 @@ export default {
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  position: relative;
   color: #828282;
 }
 
@@ -193,6 +201,22 @@ export default {
   text-align: center;
   color: #3e454c;
   font-weight: 500;
+}
+
+.month_controller {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%);
+  width: 25x;
+  height: 25px;
+  cursor: pointer;
+}
+
+.month_controller:nth-child(1) {
+  left: -2.35em;
+}
+.month_controller:nth-child(2) {
+  right: -2.35em;
 }
 
 .calendar_table > thead > tr {
