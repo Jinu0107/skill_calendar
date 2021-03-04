@@ -18,27 +18,45 @@
             <th>SAT</th>
           </tr>
         </thead>
-        <!-- <tbody ref="calendar_tbody">
-
-        </tbody> -->
+        <tbody ref="calendar_tbody">
+          <tr v-for="(tr , index) in calendar_item_arr" :key="index">
+            <calendar-td-component v-for="(td , idx) in tr" :key="idx" />
+          </tr>
+        </tbody>
       </table>
     </div>
   </div>
 </template>
 
 <script>
+import CalendarTdComponent from "@/components/CalendarTdComponent";
+
 export default {
   data() {
     return {
       list: [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
       now_month: new Date().getMonth(),
-      date_arr: [],
+      calendar_item_arr: [],
+      month_names: [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December"
+      ]
     };
   },
   methods: {
     drawDate() {
       let date = this.newDate(this.now_month);
-      let txt = `${date.getFullYear()}년 ${date.getMonth() + 1}월`;
+      let txt = `${this.month_names[date.getMonth()].toUpperCase()}, ${date.getFullYear()}`;
       this.$refs.calendar_year_month.innerHTML = txt;
 
       let year = date.getFullYear();
@@ -46,10 +64,7 @@ export default {
       let day = date.getDay();
       let now_date = date.getDate();
       let lastDate = this.list[month];
-      let tbody = document.createElement("tbody");
       let dNum = 1;
-
-      this.date_arr = [];
 
       if (
         ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) &&
@@ -59,38 +74,37 @@ export default {
         this.list[1] = 29;
       }
       for (let i = 1; i <= 6; i++) {
-        let tr = document.createElement("tr");
-
+        let tr_arr = [];
         for (let j = 1; j <= 7; j++) {
-          let td = document.createElement("td");
-          if ((i == 1 && j <= day) || dNum > lastDate) {
-            td.innerHTML = `<span></span>`;
-          } else {
-            td.innerHTML = `<span>${dNum}</span>`;
-            if (dNum == new Date().getDate()) {
-              td.classList.add("calendar_active");
-            }
-            console.log(td);
-            dNum++;
-            this.date_arr.push(td);
-          }
-          tr.appendChild(td);
-        }
-        tbody.appendChild(tr);
-      }
+          let td_obj = {};
 
-      this.$refs.calendar_table.appendChild(tbody);
+          if ((i == 1 && j <= day) || dNum > lastDate)
+            td_obj = { today: false, date: "" };
+          else {
+            td_obj = { today: false, date: dNum };
+            if (dNum == new Date().getDate()) td_obj.today = true;
+            dNum++;
+          }
+
+          tr_arr.push(td_obj);
+        }
+        this.calendar_item_arr.push(tr_arr);
+      }
+      console.log(this.calendar_item_arr);
     },
     newDate(month, date = 1) {
       let n = new Date();
       n.setDate(date);
       n.setMonth(month);
       return n;
-    },
+    }
   },
   mounted() {
     this.drawDate();
   },
+  components: {
+    CalendarTdComponent
+  }
 };
 </script>
 
@@ -103,8 +117,8 @@ export default {
 }
 
 #calendar {
-    width: 70%;
-    margin: 0 auto;
+  width: 70%;
+  margin: 0 auto;
 }
 
 .calendar_top {

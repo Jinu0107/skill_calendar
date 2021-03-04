@@ -3,18 +3,18 @@
     <div class="main_side_bar">
       
     </div>
-    <calendar />
+    <calendar-component />
   </div>
 </template>
 
 <script>
 
-import Calendar from '@/components/Calendar';
+import CalendarComponent from '@/components/CalendarComponent';
 
 export default {
 
 components : {
-  Calendar
+  CalendarComponent
 }
 
 
