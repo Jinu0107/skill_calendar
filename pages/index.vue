@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="main_container">
     <div class="main_side_bar">
       
     </div>
@@ -22,13 +22,13 @@ components : {
 </script>
 
 <style>
+.main_container {
+  display: flex;
+}
 
 .main_side_bar {
-  position: fixed;
-  left: 0%;
-  top: 0;
   background-color: #3e454c;
-  width: 50px;
+  width: 25%;
   height: 100vh;
 }
 
