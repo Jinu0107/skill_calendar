@@ -43,8 +43,8 @@
             <calendar-td-component
               v-for="(td, td_index) in tr"
               :key="td_index"
-              :prop_date="String(td.date)"
-              :prop_today="td.today"
+              :prop__date="String(td.date)"
+              :prop__today="td.today"
               @tdClickEvent="tdClickEvent(`${tr_index}-${td_index}`)"
             />
           </tr>
@@ -173,7 +173,7 @@ export default {
   position: relative;
   width: 80%;
   height: 100vh;
-  background-color: #f3f3f3;
+  background-color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -196,7 +196,7 @@ export default {
 
 .calendar_top > .year_controller {
   font-weight: 600;
-  color: #ff7f66;
+  color: #0051cb;
   font-size: 1.09em;
   cursor: pointer;
 }

@@ -7,3 +7,45 @@
     outline: none;
 }
 
+.container {
+    width: 83%;
+    margin: 0 auto;
+}
+
+.full_container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+}
+
+.center_box {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 18%;
+    min-width: 300px;
+}
+
+.sign_title {
+    color: #3e454c;
+    font-size: 1.7em;
+}
+
+.sign_text {
+    margin-top: 10px;
+    font-size: 0.8em;
+}
+
+.sign_link {
+    color: #3e454c;
+    font-size: 0.78em;
+    text-decoration: none;
+}
+
+.sign_link_group {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 15px;
+}

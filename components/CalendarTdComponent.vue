@@ -1,5 +1,5 @@
 <template>
-  <td :class="{ active: prop_today }" @click="changeFocus">{{ prop_date }}</td>
+  <td :class="{ active: prop__today }" @click="changeFocus">{{ prop__date }}</td>
 </template>
 
 <script>
@@ -8,12 +8,12 @@ export default {
     return {};
   },
   props: {
-    prop_date: { type: String, default: "" },
-    prop_today: { type: Boolean, default: false },
+    prop__date: { type: String, default: "" },
+    prop__today: { type: Boolean, default: false },
   },
   methods: {
     changeFocus() {
-      if (this.prop_date == "") return;
+      if (this.prop__date == "") return;
       this.$emit("tdClickEvent");
     },
   },
@@ -40,7 +40,7 @@ export default {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background-color: #ff7f66;
+  background-color: #0051cb;
   position: absolute;
   display: flex;
   justify-content: center;
