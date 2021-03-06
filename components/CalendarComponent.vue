@@ -39,12 +39,13 @@
           </tr>
         </thead>
         <tbody ref="calendar_tbody">
-          <tr v-for="(tr, index) in calendar_item_arr" :key="index">
+          <tr v-for="(tr, tr_index) in calendar_item_arr" :key="tr_index">
             <calendar-td-component
-              v-for="(td, idx) in tr"
-              :key="idx"
-              :date="String(td.date)"
-              :today="td.today"
+              v-for="(td, td_index) in tr"
+              :key="td_index"
+              :prop_date="String(td.date)"
+              :prop_today="td.today"
+              @tdClickEvent="tdClickEvent(`${tr_index}-${td_index}`)"
             />
           </tr>
         </tbody>
@@ -81,7 +82,6 @@ export default {
   methods: {
     drawCalendar() {
       // draw Calendar function
-
       let date = this.newDate(this.now_month);
       let txt = `${this.month_names[
         date.getMonth()
@@ -139,8 +139,23 @@ export default {
 
     changeCalendar(num) {
       // change Calendar
+      
       this.now_month += num;
       this.drawCalendar();
+    },
+    tdClickEvent(index) {
+      // change focus
+
+      const idx_arr = index.split("-");
+      const item = this.calendar_item_arr
+        .reduce((now, x) => {
+          x.forEach((e) => now.push(e));
+          return now;
+        }, [])
+        .find((day) => day.today);
+      if(item !== undefined) item.today = false;
+
+      this.calendar_item_arr[idx_arr[0]][idx_arr[1]].today = true;
     },
   },
   mounted() {
@@ -156,7 +171,7 @@ export default {
 <style>
 .calendar_container {
   position: relative;
-  width: 75%;
+  width: 80%;
   height: 100vh;
   background-color: #f3f3f3;
   display: flex;

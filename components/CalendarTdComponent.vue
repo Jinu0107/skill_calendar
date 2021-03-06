@@ -1,18 +1,26 @@
 <template>
-  <td :class="{active : today}">{{ date }}</td>
+  <td :class="{ active: prop_today }" @click="changeFocus">{{ prop_date }}</td>
 </template>
 
 <script>
 export default {
-  props : {
-      date : { type : String , default : "" },
-      today : { type : Boolean , default : false}
-  }
+  data() {
+    return {};
+  },
+  props: {
+    prop_date: { type: String, default: "" },
+    prop_today: { type: Boolean, default: false },
+  },
+  methods: {
+    changeFocus() {
+      if (this.prop_date == "") return;
+      this.$emit("tdClickEvent");
+    },
+  },
 };
 </script>
 
 <style>
-
 .calendar_table > tbody > tr > td {
   position: relative;
   table-layout: fixed;
@@ -24,7 +32,6 @@ export default {
   color: #fff;
   z-index: 5;
 }
-
 
 .calendar_table > tbody > tr > td.active::before {
   content: "";
@@ -41,5 +48,4 @@ export default {
   border-radius: 100%;
   z-index: -1;
 }
-
 </style>
