@@ -1,33 +1,28 @@
 <template>
   <div class="main_container">
-    <div class="main_side_bar">
-      <nuxt-link to="/login">dasdsadsdd</nuxt-link>
-    </div>
-    <calendar-component> </calendar-component>
+    <sidebar-component />
+    <calendar-component />
   </div>
 </template>
 
 <script>
 import CalendarComponent from "@/components/CalendarComponent";
+import SidebarComponent from "@/components/SidebarComponent";
 
 export default {
   components: {
     CalendarComponent,
+    SidebarComponent,
   },
 };
 </script>
 
 <style>
+/* main-color : #0051cb;
+blue-border-color : #dde3ea */
+
+
 .main_container {
   display: flex;
-}
-
-.main_side_bar {
-  z-index: 10;
-  background-color: #fff;
-  box-shadow: 0 0 8px rgb(33 38 46 / 30%);
-  width: 20%;
-  min-width: 280px;
-  height: 100vh;
 }
 </style>

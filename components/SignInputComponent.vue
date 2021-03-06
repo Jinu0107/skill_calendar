@@ -32,7 +32,7 @@ input {
   transition: border 0.4s;
   color: #0f0e6b;
   margin-top: 20px;
-  font-size: 0.7em;
+  font-size: 0.7rem;
 }
 input::placeholder {
   color: #999;

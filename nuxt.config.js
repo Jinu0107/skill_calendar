@@ -18,7 +18,11 @@ export default {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+    ],
+    script : [
+      { src : 'https://use.fontawesome.com/releases/v5.2.0/js/all.js'}
     ]
+
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css

@@ -9,15 +9,19 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
-    "core-js": "^3.8.3",
-    "nuxt": "^2.14.12",
-    "@fortawesome/fontawesome-free": "^5.15.1",
+    "@fortawesome/fontawesome-free": "^5.15.2",
     "@fortawesome/vue-fontawesome": "^2.0.0",
     "@nuxtjs/axios": "^5.12.2",
     "axios": "^0.21.0",
     "bootstrap": "^4.5.3",
     "bootstrap-select": "^1.13.18",
-    "bootstrap-vue": "^2.19.0"
+    "bootstrap-vue": "^2.19.0",
+    "core-js": "^3.8.3",
+    "nuxt": "^2.14.12",
+    "vue": "^2.6.12",
+    "vue-bem-cn": "^1.1.1",
+    "vue-chartjs": "^3.5.1",
+    "vuetify": "^2.3.18"
   },
   "devDependencies": {}
 }

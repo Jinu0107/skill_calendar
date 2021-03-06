@@ -187,7 +187,7 @@ export default {
 }
 
 .calendar_top {
-  padding: 0 3.3em;
+  padding: 0 3.3rem;
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
@@ -197,12 +197,12 @@ export default {
 .calendar_top > .year_controller {
   font-weight: 600;
   color: #0051cb;
-  font-size: 1.09em;
+  font-size: 1.09rem;
   cursor: pointer;
 }
 
 .calendar_top > span {
-  font-size: 1.85em;
+  font-size: 1.85rem;
   color: #6a7783;
   font-weight: 600;
 }
@@ -228,10 +228,10 @@ export default {
 }
 
 .month_controller:nth-child(1) {
-  left: -2.35em;
+  left: -2.35rem;
 }
 .month_controller:nth-child(2) {
-  right: -2.35em;
+  right: -2.35rem;
 }
 
 .calendar_table > thead > tr {
@@ -240,12 +240,12 @@ export default {
 
 .calendar_table > thead > tr > th {
   width: calc(100% / 7);
-  font-size: 1.4em;
+  font-size: 1.4rem;
   font-weight: 600;
   color: #3e454c;
 }
 
 .calendar_table > tbody {
-  font-size: 1.2em;
+  font-size: 1.2rem;
 }
 </style>
