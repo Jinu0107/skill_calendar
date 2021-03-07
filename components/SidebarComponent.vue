@@ -1,8 +1,13 @@
 <template>
   <div class="main_sidebar">
     <div class="sidebar_title">
-      <i class="fas fa-calendar"></i>
+      <i class="far fa-calendar"></i>
       <span>기능반 일정</span>
+    </div>
+    <div class="schedule_list_box">
+      <sidebar-date-component />
+      <sidebar-date-component />
+      <sidebar-date-component />
     </div>
     <div class="user_box">
       <div class="flex_box center">
@@ -15,7 +20,11 @@
 </template>
 
 <script>
-export default {};
+import SidebarDateComponent from "@/components/SidebarDateComponent";
+
+export default {
+  components: [SidebarDateComponent],
+};
 </script>
 
 <style scoped>
@@ -68,17 +77,39 @@ export default {};
 .sidebar_title {
   width: 100%;
   height: 80px;
+  padding: 0px 10px;
   display: flex;
   align-items: center;
   border-bottom: 1px solid #dde3ea;
   color: #0051cb;
-  font-size: 2rem;
+  font-size: 1.8rem;
 }
 
 .sidebar_title > span {
-    margin-left: 15px;
-    color: #0051cb;
-    font-size: 1rem;
-    font-weight: 600;
+  margin-left: 15px;
+  color: #0051cb;
+  font-size: 1.1rem;
+  font-weight: 600;
 }
+
+.schedule_list_box {
+  margin: 90px auto;
+  margin-top: 80px;
+  width: 90%;
+  height: 70%;
+  background-color: #fff;
+  overflow-y: auto;
+  padding-left: 10px;
+}
+.schedule_list_box::-webkit-scrollbar {
+  display: none;
+}
+/* .schedule_list_box::-webkit-scrollbar-thumb {
+  background-color: var(--main-blue-color);
+  border-radius: 10px;
+}
+.schedule_list_box::-webkit-scrollbar-track {
+  background-color: #fff;
+} */
+
 </style>

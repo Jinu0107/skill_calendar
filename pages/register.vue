@@ -28,7 +28,7 @@
         <nuxt-link to="/login" class="sign_link"> 로그인 </nuxt-link>
         <nuxt-link to="/" class="sign_link"> 메인으로 </nuxt-link>
       </div>
-      <sign-button-component :prop__button_value="'로그인'"/>
+      <sign-button-component :prop__button_value="'회원가입'"/>
     </div>
   </div>
 </template>

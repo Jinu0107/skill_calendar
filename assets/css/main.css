@@ -7,6 +7,10 @@
     outline: none;
 }
 
+:root {
+    --main-blue-color: #0051cb;
+    --main-border-color : #dde3ea;
+}
 
 .container {
     width: 83%;
@@ -34,7 +38,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     width: 18%;
-    min-width: 300px;
+    min-width: 315px;
 }
 
 .sign_title {
