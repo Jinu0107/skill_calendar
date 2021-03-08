@@ -1,48 +1,74 @@
 <template>
-  <div class="sidebar_date" @click="showSchedule">
-    <div class="circle"></div>
-    <div class="title">
-      2021, 3월 7일 <br />
-      <span class="sub"> 안진우 외2명 </span>
+  <div class="sidebar_item" @click="showSchedule">
+    <div class="sidebar_date">
+      <div class="circle"></div>
+      <div class="title">
+        2021, 3월 7일
+        <br />
+        <span class="sub">안진우 외2명</span>
+      </div>
+      <div class="icon" :class="{ on: is_show }">
+        <i class="fas fa-angle-down"></i>
+      </div>
     </div>
-    <div class="icon" :class="{ on: is_show }">
-      <i class="fas fa-angle-down"></i>
-    </div>
+    <transition name @enter="slideEnter" @leave="slideLeave">
+      <div class="schedule_list_box"  v-show="is_show" ref="items">
+        <sidebar-schedule-component />
+        <sidebar-schedule-component />
+      </div>
+    </transition>
   </div>
 </template>
 
 <script>
+import SidebarScheduleComponent from "@/components/SidebarScheduleComponent";
+
 export default {
   data() {
     return {
-      is_show: false,
+      is_show: false
     };
   },
   methods: {
     showSchedule() {
       this.is_show = !this.is_show;
     },
+    slideEnter() {
+      this.$refs.items.style.height = "auto";
+      let { height } = this.$refs.items.getBoundingClientRect();
+      this.$refs.items.style.height = 0;
+      // setTimeout(() => { this.$refs.items.style.height = 65 * (this.direction.length+2) + "px" }, 10);
+      setTimeout(() => {
+        this.$refs.items.style.height = height + "px";
+      }, 10);
+    },
+    slideLeave() {
+      this.$refs.items.style.height = 0;
+    }
   },
+  components: [SidebarScheduleComponent]
 };
 </script>
 
 <style scoped>
+.sidebar_item {
+  border-left: 3px solid var(--main-border-color);
+}
+
 .sidebar_date {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-left: 3px solid var(--main-border-color);
   z-index: 20;
   position: relative;
   width: 100%;
   height: 90px;
   cursor: pointer;
   background: #fff;
-  padding-left: 20px;
-  padding-right: 5px;
+  padding: 0px 20px;
 }
 .sidebar_date:hover {
-  filter: brightness(95%);
+  filter: brightness(98%);
 }
 
 .circle {
@@ -72,5 +98,10 @@ export default {
 
 .icon.on {
   transform: rotate(180deg);
+}
+
+.schedule_list_box {
+  width: 100%;
+  transition: .4s;
 }
 </style>

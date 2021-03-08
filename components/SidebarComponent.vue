@@ -4,7 +4,7 @@
       <i class="far fa-calendar"></i>
       <span>기능반 일정</span>
     </div>
-    <div class="schedule_list_box">
+    <div class="date_list_box">
       <sidebar-date-component />
       <sidebar-date-component />
       <sidebar-date-component />
@@ -92,7 +92,7 @@ export default {
   font-weight: 600;
 }
 
-.schedule_list_box {
+.date_list_box {
   margin: 90px auto;
   margin-top: 80px;
   width: 90%;
@@ -101,14 +101,14 @@ export default {
   overflow-y: auto;
   padding-left: 10px;
 }
-.schedule_list_box::-webkit-scrollbar {
+.date_list_box::-webkit-scrollbar {
   display: none;
 }
-/* .schedule_list_box::-webkit-scrollbar-thumb {
+/* .date_list_box::-webkit-scrollbar-thumb {
   background-color: var(--main-blue-color);
   border-radius: 10px;
 }
-.schedule_list_box::-webkit-scrollbar-track {
+.date_list_box::-webkit-scrollbar-track {
   background-color: #fff;
 } */
 
