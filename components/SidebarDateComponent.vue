@@ -1,5 +1,5 @@
 <template>
-  <div class="sidebar_item" @click="showSchedule">
+  <div class="sidebar_item">
     <div class="sidebar_date">
       <div class="circle"></div>
       <div class="title">
@@ -7,12 +7,12 @@
         <br />
         <span class="sub">안진우 외2명</span>
       </div>
-      <div class="icon" :class="{ on: is_show }">
+      <div class="icon" :class="{ on: is_show }" @click="showSchedule">
         <i class="fas fa-angle-down"></i>
       </div>
     </div>
     <transition name @enter="slideEnter" @leave="slideLeave">
-      <div class="schedule_list_box"  v-show="is_show" ref="items">
+      <div class="schedule_list_box" v-show="is_show" ref="items">
         <sidebar-schedule-component />
         <sidebar-schedule-component />
       </div>
@@ -52,6 +52,7 @@ export default {
 
 <style scoped>
 .sidebar_item {
+  
   border-left: 3px solid var(--main-border-color);
 }
 
@@ -101,7 +102,8 @@ export default {
 }
 
 .schedule_list_box {
+  overflow: hidden;
   width: 100%;
-  transition: .4s;
+  transition: 0.4s;
 }
 </style>
