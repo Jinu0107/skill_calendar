@@ -6,7 +6,7 @@
 export default {
   props: {
     prop__button_value: { type: String, default: "button" },
-    prop__clickFunction: { type: String, default: "button" },
+    prop__clickFunction: { type: Function, default: ()=>{} },
   },
 };
 </script>
