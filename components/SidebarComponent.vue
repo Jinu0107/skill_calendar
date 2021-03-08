@@ -82,7 +82,7 @@ export default {
   align-items: center;
   border-bottom: 1px solid #dde3ea;
   color: #0051cb;
-  font-size: 1.8rem;
+  font-size: 1.5rem;
 }
 
 .sidebar_title > span {

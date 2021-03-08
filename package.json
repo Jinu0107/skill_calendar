@@ -17,6 +17,7 @@
     "bootstrap-select": "^1.13.18",
     "bootstrap-vue": "^2.19.0",
     "core-js": "^3.8.3",
+    "express": "^4.17.1",
     "nuxt": "^2.14.12",
     "vue": "^2.6.12",
     "vue-bem-cn": "^1.1.1",
