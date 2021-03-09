@@ -56,4 +56,7 @@ export default {
   serverMiddleware: [
     { path: '/api', handler: '~/api' }
   ],
+  router: {
+    middleware: ['check']
+  }
 }

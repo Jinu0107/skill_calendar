@@ -1,5 +1,12 @@
 const { Router } = require('express');
 const { pool } = require('../DB/DB');
+const { session_secret } = require('../DB/Credential');
+const jwt = require('jsonwebtoken');
+const options = {
+  algorithm: "HS256", // 해싱 알고리즘
+  expiresIn: "30m",  // 토큰 유효 기간
+  issuer: "issuer" // 발행자
+}
 
 const router = Router();
 
@@ -20,14 +27,25 @@ router.post('/register', async (req, res) => {
 /* login process */
 router.post("/login", async (req, res) => {
   const { id, password } = req.body;
-  const find_user = await pool.query("SELECT * FROM skill_users WHERE user_id = ? AND user_password = PASSWORD(?)", [id, password]);
+  const find_user = await pool.query("SELECT * FROM skill_users WHERE user_id = ? AND user_password = PASSWORD(?) AND user_level != 0", [id, password]);
   if (find_user[0].length === 1) {
-    res.json({ msg: '성공적으로 로그인 되었습니다.', success: true });
-    req.session.user = "로그인 잇습니다.";
+    const token = jwt.sign({
+      user_id: find_user[0].user_id,
+      user_name: find_user[0].user_name,
+      user_level: find_user[0].user_level,
+    }, session_secret, options);
+    res.json({ msg: '성공적으로 로그인 되었습니다.', success: true, token: token });
   } else {
     res.json({ msg: '아이디 또는 비밀번호가 잘못 되었습니다.', success: false });
   }
 });
+
+router.post("/access_check", (req, res) => {
+  const token = req.header("Authorization");
+  console.log(jwt.verify());
+  res.json(token);
+});
+
 
 router.get("/session_test", (req, res) => {
   res.json(req.session);

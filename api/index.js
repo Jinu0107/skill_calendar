@@ -2,7 +2,6 @@ const express = require('express');
 const http = require('http');
 const { session_secret } = require('./DB/Credential');
 const body_parser = require("body-parser");
-const jwt = require('jsonwebtoken');
 
 
 // Create express instance
