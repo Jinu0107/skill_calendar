@@ -29,26 +29,27 @@ router.post("/login", async (req, res) => {
   const { id, password } = req.body;
   const find_user = await pool.query("SELECT * FROM skill_users WHERE user_id = ? AND user_password = PASSWORD(?) AND user_level != 0", [id, password]);
   if (find_user[0].length === 1) {
-    const token = jwt.sign({
-      user_id: find_user[0].user_id,
-      user_name: find_user[0].user_name,
-      user_level: find_user[0].user_level,
-    }, session_secret, options);
+    const user_obj = {
+      user_id: find_user[0][0].user_id,
+      user_name: find_user[0][0].user_name,
+      user_level: find_user[0][0].user_level
+    };
+    const token = jwt.sign(user_obj, session_secret, options);
     res.json({ msg: '성공적으로 로그인 되었습니다.', success: true, token: token });
   } else {
     res.json({ msg: '아이디 또는 비밀번호가 잘못 되었습니다.', success: false });
   }
 });
 
+/* token check */
 router.post("/access_check", (req, res) => {
   const token = req.header("Authorization");
-  console.log(jwt.verify());
-  res.json(token);
-});
-
-
-router.get("/session_test", (req, res) => {
-  res.json(req.session);
+  try {
+    const decode_token = jwt.verify(token, session_secret);
+    res.json({ user_level: decode_token.user_level, success: true });
+  } catch (error) {
+    res.json({ user_level: 0, success: false });
+  }
 });
 
 

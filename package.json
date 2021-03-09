@@ -27,7 +27,8 @@
     "vue": "^2.6.12",
     "vue-bem-cn": "^1.1.1",
     "vue-chartjs": "^3.5.1",
-    "vuetify": "^2.3.18"
+    "vuetify": "^2.3.18",
+    "vuex-persistedstate": "^4.0.0-beta.3"
   },
   "devDependencies": {}
 }
