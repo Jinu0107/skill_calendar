@@ -1,3 +1,6 @@
+
+
+
 export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
   ssr: true,
@@ -10,7 +13,7 @@ export default {
     title: 'skill-vacation',
     htmlAttrs: {
       lang: 'en'
-    },  
+    },
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -19,8 +22,8 @@ export default {
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ],
-    script : [
-      { src : 'https://use.fontawesome.com/releases/v5.2.0/js/all.js'}
+    script: [
+      { src: 'https://use.fontawesome.com/releases/v5.2.0/js/all.js' }
     ]
 
   },
@@ -50,7 +53,7 @@ export default {
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
   },
-  serverMiddleware: {
-    '/api': '~/api'
-  },
+  serverMiddleware: [
+    { path: '/api', handler: '~/api' }
+  ],
 }

@@ -68,10 +68,11 @@ export default {
 
       let model = { id, password, name };
 
-      // let { data } = await this.$axios.post("/api/user/register", model);
-      let data = await this.$api.auth.register(model);
-      console.log(data);
-      // alert(data.msg);
+      let { data } = await this.$api.auth.register(model);
+      alert(data.msg);
+      if(data.success) {
+        this.$router.push("/login");
+      }
     },
   },
   components: {

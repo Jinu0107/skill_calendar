@@ -8,6 +8,7 @@ export default function ({ $axios, store }) {
     const url = {
         HOST,
         register: `${HOST}/api/user/register`,
+        login : `${HOST}/api/user/login`,
     }
 
     const option = {

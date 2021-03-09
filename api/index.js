@@ -1,8 +1,8 @@
 const express = require('express');
 const http = require('http');
-const { pool } = require('./DB/DB');
 const { session_secret } = require('./DB/Credential');
 const body_parser = require("body-parser");
+const jwt = require('jsonwebtoken');
 
 
 // Create express instance
@@ -17,8 +17,8 @@ app.use(session({
     secret: session_secret
 }));
 
-app.use( body_parser.json() );
-app.use( body_parser.urlencoded({ extended : true }) );
+app.use(body_parser.json());
+app.use(body_parser.urlencoded({ extended: true }));
 
 
 
@@ -28,12 +28,6 @@ const users = require('./routes/users');
 // Import API Routes
 app.use("/user", users);
 
-
-app.get("/insert", async (req, res) => {
-    console.log("dsa");
-    await pool.query("INSERT INTO `users`(`user_id`, `user_name`, `user_password`, `user_level`, `user_img`, `user_count`) VALUES (? , PASSWORD(?) , ? , ? , ? , ?)", ["test", "안진우", "123", 1, "", 4]);
-    res.json("dsadsas");
-});
 
 // Export express app
 module.exports = app;
