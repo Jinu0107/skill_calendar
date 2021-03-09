@@ -44,12 +44,42 @@ router.post("/login", async (req, res) => {
 /* token check */
 router.post("/access_check", (req, res) => {
   const token = req.header("Authorization");
-  try {
-    const decode_token = jwt.verify(token, session_secret);
-    res.json({ user_level: decode_token.user_level, success: true });
-  } catch (error) {
-    res.json({ user_level: 0, success: false });
+
+  // token does not exist
+  if (token == null) {
+    res.json({
+      success: false,
+      user_level: 0,
+      message: '비로그인'
+    });
   }
+
+  const p = new Promise((res, rej) => {
+    jwt.verify(token, session_secret, (err, decoded) => {
+      if (err) rej(err)
+      res(decoded);
+    });
+  });
+
+  // if token is valid, it will respond with its info
+  const respond = (d_token) => {
+    res.json({
+      success: true,
+      user_level: d_token.user_level,
+      info: d_token
+    });
+  }
+  // if it has failed to verify, it will return an error message
+  const onError = (error) => {
+    res.json({
+      success: false,
+      user_level: 0,
+      message: error.message
+    })
+  }
+
+  // process the promise
+  p.then(respond).catch(onError);
 });
 
 

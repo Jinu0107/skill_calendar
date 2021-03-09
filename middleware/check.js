@@ -17,7 +17,19 @@ export default async ({ store, redirect, route }) => {
     };
     let { data } = await store.$axios.post(URL, { headers });
 
-    store.commit("auth/checkToken", data.user_level);
+
+    if (data.success) {
+        let parmas = {
+            name: data.info.user_name,
+            level: data.info.user_level * 1,
+            img: data.info.user_img,
+        }
+        store.commit("auth/setState", parmas);
+    } else {
+        store.commit("auth/logout");
+    }
+
+
 
     let SIGN = !(store.state.auth.token === "undefined" || !store.state.auth.token);
 
@@ -27,7 +39,6 @@ export default async ({ store, redirect, route }) => {
     }
 
     if (SIGNED_USER_ALLOW_PATH.includes(path) && store.state.auth.level !== 99) {
-        console.log(store.state.auth.level);
         alert("관리자만 출입 가능합니다.");
         return redirect('/');
     }

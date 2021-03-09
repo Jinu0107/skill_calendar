@@ -11,10 +11,17 @@
     </div>
     <div class="user_box">
       <div class="flex_box center">
-        <img src="/imgs/user.png" alt="" />
-        <span class="name">안진우</span>
+        <img src="/imgs/user.png" alt="" v-if="is_login !== 0" />
+        <span class="name" v-if="is_login !== 0">{{ user_name }}</span>
+
+        <span class="name" v-if="is_login === 0">비 로그인중</span>
       </div>
-      <nuxt-link to="/login">dasdsadsdd</nuxt-link>
+      <nuxt-link to="/login" class="link" v-if="is_login === 0"
+        ><i class="fas fa-sign-in-alt"></i
+      ></nuxt-link>
+      <a href="#" class="link" v-if="is_login !== 0" @click="logOutProcess">
+        <i class="fas fa-sign-out-alt"></i>
+      </a>
     </div>
   </div>
 </template>
@@ -23,6 +30,21 @@
 import SidebarDateComponent from "@/components/SidebarDateComponent";
 
 export default {
+  data() {
+    return {
+      is_login: this.$store.state.auth.level,
+      user_name: this.$store.state.auth.name,
+      user_img: this.$store.state.auth.img,
+    };
+  },
+  methods: {
+    logOutProcess() {
+      console.log(this.$store.state.auth);
+      alert("로그아웃 되었습니다.");
+      this.$store.commit("auth/logout");
+      this.is_login = this.$store.state.auth.level;
+    },
+  },
   components: [SidebarDateComponent],
 };
 </script>
@@ -112,4 +134,8 @@ export default {
   background-color: #fff;
 } */
 
+.link {
+  font-size: 1.2rem;
+  color: var(--main-blue-color);
+}
 </style>
