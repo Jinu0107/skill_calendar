@@ -8,7 +8,6 @@ const router = Router();
 router.post('/register', async (req, res) => {
   console.log(req.body);
   const { id, password, name } = req.body;
-  console.log(id, password);
   const find_user = await pool.query("SELECT * FROM users WHERE user_id = ?", [id]);
   if (find_user[0].length === 1) {
     res.json({ msg: '중복되는 회원이 있습니다.', success: false });

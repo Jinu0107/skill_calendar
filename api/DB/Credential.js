@@ -1,8 +1,8 @@
 const credential = {
-    host: 'localhost',
-    user: 'root',
-    database: 'yy_calendar',
-    password: ''
+    host: 'gondr.asuscomm.com',
+    user: 'wlsdn030107',
+    database: 'wlsdn030107',
+    password: '030107030825'
 }
 
 const session_secret = "wlsdn";
