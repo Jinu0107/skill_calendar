@@ -3,9 +3,13 @@
     <div class="sidebar_date">
       <div class="circle"></div>
       <div class="title">
-        2021, 3월 7일
+        {{ prop__reservation_item[0].date }}
         <br />
-        <span class="sub">안진우 외2명</span>
+        <span class="sub"
+          >{{ prop__reservation_item[0].user_name }} 외{{
+            prop__reservation_item.length-1
+          }}명</span
+        >
       </div>
       <div class="icon" :class="{ on: is_show }" @click="showSchedule">
         <i class="fas fa-angle-down"></i>
@@ -13,8 +17,11 @@
     </div>
     <transition name @enter="slideEnter" @leave="slideLeave">
       <div class="schedule_list_box" v-show="is_show" ref="items">
-        <sidebar-schedule-component />
-        <sidebar-schedule-component />
+        <sidebar-schedule-component
+          v-for="(item, index) in prop__reservation_item"
+          :key="index"
+          :prop__schedule_item="item"
+        />
       </div>
     </transition>
   </div>
@@ -26,8 +33,13 @@ import SidebarScheduleComponent from "@/components/SidebarScheduleComponent";
 export default {
   data() {
     return {
-      is_show: false
+      is_show: false,
+      date_arr: null,
+      first_name: null,
     };
+  },
+  props: {
+    prop__reservation_item: { type: Array, default: () => [] },
   },
   methods: {
     showSchedule() {
@@ -44,15 +56,18 @@ export default {
     },
     slideLeave() {
       this.$refs.items.style.height = 0;
-    }
+    },
   },
-  components: [SidebarScheduleComponent]
+  mounted() {
+    // this.date_arr = prop__reservation_item[0].date.split("-");
+    // this.first_name = prop__reservation_item[0].user_name;
+  },
+  components: [SidebarScheduleComponent],
 };
 </script>
 
 <style scoped>
 .sidebar_item {
-  
   border-left: 3px solid var(--main-border-color);
 }
 

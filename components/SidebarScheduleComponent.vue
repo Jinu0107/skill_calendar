@@ -5,14 +5,18 @@
       <div class="circle"></div>
     </div>
     <div class="schedule_text">
-      <div class="title">안진우</div>
-      <div class="sub">집에서 게임하려고 휴가 씁니다.</div>
+      <div class="title">{{ prop__schedule_item.user_name }}</div>
+      <div class="sub">{{ prop__schedule_item.info }}</div>
     </div>
   </div>
 </template>
 
 <script>
-export default {};
+export default {
+  props: {
+    prop__schedule_item: { type: Object, default: {} },
+  },
+};
 </script>
 
 <style scoped>

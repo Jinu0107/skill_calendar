@@ -5,9 +5,11 @@
       <span>기능반 일정</span>
     </div>
     <div class="date_list_box">
-      <sidebar-date-component />
-      <sidebar-date-component />
-      <sidebar-date-component />
+      <sidebar-date-component
+        v-for="(item, index) in prop__reservation_list"
+        :key="index"
+        :prop__reservation_item="item"
+      />
     </div>
     <div class="user_box">
       <div class="flex_box center">
@@ -34,11 +36,11 @@ export default {
     return {
       is_login: this.$store.state.auth.level,
       user_name: this.$store.state.auth.name,
-      user_img: this.$store.state.auth.img
+      user_img: this.$store.state.auth.img,
     };
   },
   props: {
-    prop__reservation_list: { type: Array, default: () => [] }
+    prop__reservation_list: { type: Array, default: () => [] },
   },
   methods: {
     logOutProcess() {
@@ -46,9 +48,9 @@ export default {
       alert("로그아웃 되었습니다.");
       this.$store.commit("auth/logout");
       this.is_login = this.$store.state.auth.level;
-    }
+    },
   },
-  components: [SidebarDateComponent]
+  components: [SidebarDateComponent],
 };
 </script>
 

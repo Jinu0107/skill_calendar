@@ -12,8 +12,8 @@ export default ({ url, $axios, store }) => ({
         return result;
     },
 
-    async getReservationList() {
-        let result = await $axios.get(url.get_reservation_list);
+    async getReservationList(model) {
+        let result = await $axios.get(url.get_reservation_list + "/" + model.date);
         return result;
     },
     HOST: url.HOST

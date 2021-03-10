@@ -1,12 +1,30 @@
 <template>
   <div class="calendar_container">
     <div id="calendar">
-      <img class="month_controller" v-on:click="changeCalendar(-1)" src="/imgs/prev.png" alt />
-      <img class="month_controller" v-on:click="changeCalendar(1)" src="/imgs/next.png" alt />
+      <img
+        class="month_controller"
+        v-on:click="changeCalendar(-1)"
+        src="/imgs/prev.png"
+        alt
+      />
+      <img
+        class="month_controller"
+        v-on:click="changeCalendar(1)"
+        src="/imgs/next.png"
+        alt
+      />
       <div class="calendar_top">
-        <p class="prev_year year_controller" ref="prev_year" v-on:click="changeCalendar(-12)"></p>
+        <p
+          class="prev_year year_controller"
+          ref="prev_year"
+          v-on:click="changeCalendar(-12)"
+        ></p>
         <span ref="calendar_year_month"></span>
-        <p class="next_year year_controller" ref="next_year" v-on:click="changeCalendar(12)"></p>
+        <p
+          class="next_year year_controller"
+          ref="next_year"
+          v-on:click="changeCalendar(12)"
+        ></p>
       </div>
       <table class="calendar_table" ref="calendar_table">
         <thead>
@@ -33,7 +51,11 @@
         </tbody>
       </table>
     </div>
-    <reservation-button-component :prop__is_show="is_show" :prop__focus_date="focus_date" />
+    <reservation-button-component
+      :prop__is_show="is_show"
+      :prop__focus_date="focus_date"
+      @reservationSucceed="loadReservationData"
+    />
   </div>
 </template>
 
@@ -61,10 +83,10 @@ export default {
         "September",
         "October",
         "November",
-        "December"
+        "December",
       ],
       is_show: false,
-      focus_date: null
+      focus_date: null,
     };
   },
   methods: {
@@ -118,6 +140,7 @@ export default {
         }
         this.calendar_item_arr.push(tr_arr);
       }
+      this.loadReservationData();
     },
 
     newDate(month, date = 1) {
@@ -140,10 +163,10 @@ export default {
       const idx_arr = index.split("-");
       const item = this.calendar_item_arr
         .reduce((now, x) => {
-          x.forEach(e => now.push(e));
+          x.forEach((e) => now.push(e));
           return now;
         }, [])
-        .find(day => day.today);
+        .find((day) => day.today);
 
       if (item !== undefined) item.today = false;
 
@@ -151,7 +174,13 @@ export default {
       this.focus_date.month = this.now_prop_month + 1;
       this.focus_date.year = this.now_prop_year;
       this.calendar_item_arr[idx_arr[0]][idx_arr[1]].today = true;
-    }
+    },
+    loadReservationData() {
+      this.$emit(
+        "loadReservationData",
+        new Date(`${this.now_prop_year}-${this.now_prop_month + 1}`)
+      );
+    },
   },
   mounted() {
     //start
@@ -159,8 +188,8 @@ export default {
   },
   components: {
     CalendarTdComponent,
-    ReservationButtonComponent
-  }
+    ReservationButtonComponent,
+  },
 };
 </script>
 

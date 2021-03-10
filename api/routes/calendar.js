@@ -46,8 +46,9 @@ router.post('/reservation', async (req, res) => {
 
 });
 
-router.get("/load", async (req, res) => {
-    let result = await pool.query("SELECT r.* , u.user_name FROM skill_reservation r , skill_users u WHERE r.user_id = u.user_id;");
+router.get("/load/:date", async (req, res) => {
+    const date = req.params.date;
+    let result = await pool.query("SELECT r.* , u.user_name FROM skill_reservation r , skill_users u WHERE r.user_id = u.user_id AND r.date LIKE ?", [`${date}%`]);
     res.json(result[0]);
 });
 

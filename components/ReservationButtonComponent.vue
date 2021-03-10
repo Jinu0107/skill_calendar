@@ -1,5 +1,9 @@
 <template>
-  <div class="reservation_button" :class="{show : prop__is_show}" @click="reservationProcess">
+  <div
+    class="reservation_button"
+    :class="{ show: prop__is_show }"
+    @click="reservationProcess"
+  >
     <div class="text">예약 하기</div>
     <div class="icon">
       <i class="fas fa-plus"></i>
@@ -14,7 +18,7 @@ export default {
   },
   props: {
     prop__is_show: { type: Boolean, default: false },
-    prop__focus_date: { type: Object, default: {} }
+    prop__focus_date: { type: Object, default: {} },
   },
   methods: {
     //예약 진행하는 메소드
@@ -26,12 +30,13 @@ export default {
         return;
       }
       let model = {
-        date: `${this.prop__focus_date.year}-${this.prop__focus_date.month}-${this.prop__focus_date.date}`
+        date: `${this.prop__focus_date.year}-${this.prop__focus_date.month}-${this.prop__focus_date.date}`,
       };
       let { data } = await this.$api.auth.reservation(model);
       alert(data.message);
-    }
-  }
+      this.$emit("reservationSucceed");
+    },
+  },
 };
 </script>
 
