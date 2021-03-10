@@ -1,30 +1,12 @@
 <template>
   <div class="calendar_container">
     <div id="calendar">
-      <img
-        class="month_controller"
-        v-on:click="changeCalendar(-1)"
-        src="/imgs/prev.png"
-        alt=""
-      />
-      <img
-        class="month_controller"
-        v-on:click="changeCalendar(1)"
-        src="/imgs/next.png"
-        alt=""
-      />
+      <img class="month_controller" v-on:click="changeCalendar(-1)" src="/imgs/prev.png" alt />
+      <img class="month_controller" v-on:click="changeCalendar(1)" src="/imgs/next.png" alt />
       <div class="calendar_top">
-        <p
-          class="prev_year year_controller"
-          ref="prev_year"
-          v-on:click="changeCalendar(-12)"
-        ></p>
+        <p class="prev_year year_controller" ref="prev_year" v-on:click="changeCalendar(-12)"></p>
         <span ref="calendar_year_month"></span>
-        <p
-          class="next_year year_controller"
-          ref="next_year"
-          v-on:click="changeCalendar(12)"
-        ></p>
+        <p class="next_year year_controller" ref="next_year" v-on:click="changeCalendar(12)"></p>
       </div>
       <table class="calendar_table" ref="calendar_table">
         <thead>
@@ -51,17 +33,21 @@
         </tbody>
       </table>
     </div>
+    <reservation-button-component :prop__is_show="is_show" :prop__focus_date="focus_date" />
   </div>
 </template>
 
 <script>
 import CalendarTdComponent from "@/components/CalendarTdComponent";
+import ReservationButtonComponent from "@/components/ReservationButtonComponent";
 
 export default {
   data() {
     return {
       list: [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31],
       now_month: new Date().getMonth(),
+      now_prop_month: new Date().getMonth(),
+      now_prop_year: new Date().getFullYear(),
       calendar_item_arr: [],
       month_names: [
         "January",
@@ -75,8 +61,10 @@ export default {
         "September",
         "October",
         "November",
-        "December",
+        "December"
       ],
+      is_show: false,
+      focus_date: null
     };
   },
   methods: {
@@ -97,6 +85,8 @@ export default {
       this.calendar_item_arr = [];
       this.$refs.prev_year.innerHTML = year - 1;
       this.$refs.next_year.innerHTML = year + 1;
+      this.now_prop_year = year;
+      this.now_prop_month = month;
 
       if (
         ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) &&
@@ -139,24 +129,29 @@ export default {
 
     changeCalendar(num) {
       // change Calendar
-      
+
       this.now_month += num;
       this.drawCalendar();
     },
     tdClickEvent(index) {
-      // change focus
+      // 포커스 변경 , ReservationButtonComponent의 prop 값 변경
 
+      this.is_show = true;
       const idx_arr = index.split("-");
       const item = this.calendar_item_arr
         .reduce((now, x) => {
-          x.forEach((e) => now.push(e));
+          x.forEach(e => now.push(e));
           return now;
         }, [])
-        .find((day) => day.today);
-      if(item !== undefined) item.today = false;
+        .find(day => day.today);
 
+      if (item !== undefined) item.today = false;
+
+      this.focus_date = this.calendar_item_arr[idx_arr[0]][idx_arr[1]];
+      this.focus_date.month = this.now_prop_month + 1;
+      this.focus_date.year = this.now_prop_year;
       this.calendar_item_arr[idx_arr[0]][idx_arr[1]].today = true;
-    },
+    }
   },
   mounted() {
     //start
@@ -164,11 +159,12 @@ export default {
   },
   components: {
     CalendarTdComponent,
-  },
+    ReservationButtonComponent
+  }
 };
 </script>
 
-<style>
+<style scoped>
 .calendar_container {
   position: relative;
   width: 80%;
@@ -177,6 +173,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
 }
 
 #calendar {

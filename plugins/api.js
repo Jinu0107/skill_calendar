@@ -9,6 +9,8 @@ export default function ({ $axios, store }) {
         HOST,
         register: `${HOST}/api/user/register`,
         login : `${HOST}/api/user/login`,
+        reservation : `${HOST}/api/calendar/reservation`,
+        get_reservation_list : `${HOST}/api/calendar/load`
     }
 
     const option = {

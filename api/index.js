@@ -7,14 +7,6 @@ const body_parser = require("body-parser");
 // Create express instance
 const app = express();
 const server = http.createServer(app);
-const session = require('express-session');
-
-
-app.use(session({
-    resave: false,
-    saveUninitialized: true,
-    secret: session_secret
-}));
 
 app.use(body_parser.json());
 app.use(body_parser.urlencoded({ extended: true }));
@@ -23,9 +15,11 @@ app.use(body_parser.urlencoded({ extended: true }));
 
 // Require API routes
 const users = require('./routes/users');
+const calendar = require('./routes/calendar');
 
 // Import API Routes
 app.use("/user", users);
+app.use("/calendar", calendar);
 
 
 // Export express app

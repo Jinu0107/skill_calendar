@@ -41,7 +41,7 @@ export default {
       let { data } = await this.$api.auth.login(model);
       alert(data.msg);
       if (data.success) {
-        this.$store.commit('auth/login' , data.token);
+        this.$store.commit("auth/login", data.token);
         this.$router.push("/");
       }
     }

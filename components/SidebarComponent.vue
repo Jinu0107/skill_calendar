@@ -11,14 +11,14 @@
     </div>
     <div class="user_box">
       <div class="flex_box center">
-        <img src="/imgs/user.png" alt="" v-if="is_login !== 0" />
+        <img src="/imgs/user.png" alt v-if="is_login !== 0" />
         <span class="name" v-if="is_login !== 0">{{ user_name }}</span>
 
         <span class="name" v-if="is_login === 0">비 로그인중</span>
       </div>
-      <nuxt-link to="/login" class="link" v-if="is_login === 0"
-        ><i class="fas fa-sign-in-alt"></i
-      ></nuxt-link>
+      <nuxt-link to="/login" class="link" v-if="is_login === 0">
+        <i class="fas fa-sign-in-alt"></i>
+      </nuxt-link>
       <a href="#" class="link" v-if="is_login !== 0" @click="logOutProcess">
         <i class="fas fa-sign-out-alt"></i>
       </a>
@@ -34,8 +34,11 @@ export default {
     return {
       is_login: this.$store.state.auth.level,
       user_name: this.$store.state.auth.name,
-      user_img: this.$store.state.auth.img,
+      user_img: this.$store.state.auth.img
     };
+  },
+  props: {
+    prop__reservation_list: { type: Array, default: () => [] }
   },
   methods: {
     logOutProcess() {
@@ -43,9 +46,9 @@ export default {
       alert("로그아웃 되었습니다.");
       this.$store.commit("auth/logout");
       this.is_login = this.$store.state.auth.level;
-    },
+    }
   },
-  components: [SidebarDateComponent],
+  components: [SidebarDateComponent]
 };
 </script>
 
@@ -108,10 +111,15 @@ export default {
 }
 
 .sidebar_title > span {
-  margin-left: 15px;
+  /* margin-left: 15px; */
+  margin-left: 8px;
   color: #0051cb;
   font-size: 1.1rem;
   font-weight: 600;
+}
+
+.sidebar_title > svg {
+  font-size: 1.25rem;
 }
 
 .date_list_box {
