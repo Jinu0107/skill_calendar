@@ -3,13 +3,16 @@
     <div class="sidebar_date">
       <div class="circle"></div>
       <div class="title">
-        {{ prop__reservation_item[0].date }}
+        {{ prop__schedule_item[0].str_date }}
         <br />
-        <span class="sub"
-          >{{ prop__reservation_item[0].user_name }} 외{{
-            prop__reservation_item.length-1
-          }}명</span
-        >
+        <span class="sub">
+          {{ prop__schedule_item[0].user_name }}
+          <span v-if="prop__schedule_item.length > 1">
+            외{{
+            prop__schedule_item.length-1
+            }}명
+          </span>
+        </span>
       </div>
       <div class="icon" :class="{ on: is_show }" @click="showSchedule">
         <i class="fas fa-angle-down"></i>
@@ -18,7 +21,7 @@
     <transition name @enter="slideEnter" @leave="slideLeave">
       <div class="schedule_list_box" v-show="is_show" ref="items">
         <sidebar-schedule-component
-          v-for="(item, index) in prop__reservation_item"
+          v-for="(item, index) in prop__schedule_item"
           :key="index"
           :prop__schedule_item="item"
         />
@@ -35,11 +38,11 @@ export default {
     return {
       is_show: false,
       date_arr: null,
-      first_name: null,
+      first_name: null
     };
   },
   props: {
-    prop__reservation_item: { type: Array, default: () => [] },
+    prop__schedule_item: { type: Array, default: () => [] }
   },
   methods: {
     showSchedule() {
@@ -56,13 +59,13 @@ export default {
     },
     slideLeave() {
       this.$refs.items.style.height = 0;
-    },
+    }
   },
   mounted() {
-    // this.date_arr = prop__reservation_item[0].date.split("-");
-    // this.first_name = prop__reservation_item[0].user_name;
+    // this.date_arr = prop__schedule_item[0].date.split("-");
+    // this.first_name = prop__schedule_item[0].user_name;
   },
-  components: [SidebarScheduleComponent],
+  components: [SidebarScheduleComponent]
 };
 </script>
 

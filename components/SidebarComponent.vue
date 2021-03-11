@@ -6,9 +6,9 @@
     </div>
     <div class="date_list_box">
       <sidebar-date-component
-        v-for="(item, index) in prop__reservation_list"
+        v-for="(item, index) in prop__schedule_list"
         :key="index"
-        :prop__reservation_item="item"
+        :prop__schedule_item="item"
       />
     </div>
     <div class="user_box">
@@ -40,7 +40,7 @@ export default {
     };
   },
   props: {
-    prop__reservation_list: { type: Array, default: () => [] },
+    prop__schedule_list: { type: Array, default: () => [] },
   },
   methods: {
     logOutProcess() {

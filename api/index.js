@@ -3,6 +3,10 @@ const http = require('http');
 const { session_secret } = require('./DB/Credential');
 const body_parser = require("body-parser");
 
+Date.prototype.normalization = function () {
+    return new Date(`${this.getFullYear()}-${this.getMonth() + 1}-${this.getDate()}`)
+}
+
 
 // Create express instance
 const app = express();

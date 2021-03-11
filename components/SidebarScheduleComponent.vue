@@ -2,7 +2,7 @@
   <div class="sidebar_schedule">
     <div class="status_box">
       <div class="stick"></div>
-      <div class="circle"></div>
+      <div class="circle" :class="{yellow : prop__schedule_item.level == 0}"></div>
     </div>
     <div class="schedule_text">
       <div class="title">{{ prop__schedule_item.user_name }}</div>
@@ -14,8 +14,8 @@
 <script>
 export default {
   props: {
-    prop__schedule_item: { type: Object, default: {} },
-  },
+    prop__schedule_item: { type: Object, default: {} }
+  }
 };
 </script>
 
@@ -47,6 +47,10 @@ export default {
   height: 11px;
   background-color: var(--main-blue-color);
   border-radius: 100px;
+}
+
+.status_box > .circle.yellow {
+  background-color: var(--main-yellow-color);
 }
 
 .schedule_text {

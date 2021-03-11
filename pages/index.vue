@@ -1,7 +1,11 @@
 <template>
   <div class="main_container">
-    <sidebar-component :prop__reservation_list="reservation_list" />
-    <calendar-component @loadReservationData="getReservationList" />
+    <sidebar-component :prop__schedule_list="schedule_list" />
+    <calendar-component
+      v-if="schedule_list != null"
+      :prop__schedule_list="schedule_list"
+      @loadReservationData="getReservationList"
+    />
   </div>
 </template>
 
@@ -12,15 +16,19 @@ import SidebarComponent from "@/components/SidebarComponent";
 export default {
   data() {
     return {
-      reservation_list: [],
-      date: new Date(),
+      schedule_list: null,
+      date: new Date()
     };
   },
   methods: {
     async getReservationList(now_date) {
-      if (now_date != undefined) this.date = now_date;
+      if (now_date != undefined) {
+        this.date = now_date;
+      } else {
+        this.schedule_list = null;
+      }
       let model = {
-        date: `${this.date.getFullYear()}-${this.date.getMonth() + 1}`,
+        date: `${this.date.getFullYear()}-${this.date.getMonth() + 1}`
       };
       let { data } = await this.$api.auth.getReservationList(model);
       data = data.sort((a, b) => {
@@ -29,10 +37,11 @@ export default {
 
       data = data.reduce((arr, x) => {
         let date_arr = x.date.split("-");
-        x.date = `${date_arr[0]}, ${date_arr[1]}월 ${date_arr[2]}일`;
+        x.str_date = `${date_arr[0]}, ${date_arr[1]}월 ${date_arr[2]}일`;
+        x.date_arr = date_arr;
         let flag = false;
-        arr.forEach((e) => {
-          e.forEach((i) => {
+        arr.forEach(e => {
+          e.forEach(i => {
             if (i.date == x.date) {
               flag = true;
               e.push(x);
@@ -43,16 +52,16 @@ export default {
         return arr;
       }, []);
 
-      this.reservation_list = data;
-    },
+      this.schedule_list = data;
+    }
   },
   mounted() {
     this.getReservationList();
   },
   components: {
     CalendarComponent,
-    SidebarComponent,
-  },
+    SidebarComponent
+  }
 };
 </script>
 

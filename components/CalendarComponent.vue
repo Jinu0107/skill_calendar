@@ -1,30 +1,12 @@
 <template>
   <div class="calendar_container">
     <div id="calendar">
-      <img
-        class="month_controller"
-        v-on:click="changeCalendar(-1)"
-        src="/imgs/prev.png"
-        alt
-      />
-      <img
-        class="month_controller"
-        v-on:click="changeCalendar(1)"
-        src="/imgs/next.png"
-        alt
-      />
+      <img class="month_controller" v-on:click="changeCalendar(-1)" src="/imgs/prev.png" alt />
+      <img class="month_controller" v-on:click="changeCalendar(1)" src="/imgs/next.png" alt />
       <div class="calendar_top">
-        <p
-          class="prev_year year_controller"
-          ref="prev_year"
-          v-on:click="changeCalendar(-12)"
-        ></p>
+        <p class="prev_year year_controller" ref="prev_year" v-on:click="changeCalendar(-12)"></p>
         <span ref="calendar_year_month"></span>
-        <p
-          class="next_year year_controller"
-          ref="next_year"
-          v-on:click="changeCalendar(12)"
-        ></p>
+        <p class="next_year year_controller" ref="next_year" v-on:click="changeCalendar(12)"></p>
       </div>
       <table class="calendar_table" ref="calendar_table">
         <thead>
@@ -83,11 +65,14 @@ export default {
         "September",
         "October",
         "November",
-        "December",
+        "December"
       ],
       is_show: false,
-      focus_date: null,
+      focus_date: null
     };
+  },
+  props: {
+    prop__schedule_list: { type: Array, default: () => [] }
   },
   methods: {
     drawCalendar() {
@@ -109,6 +94,8 @@ export default {
       this.$refs.next_year.innerHTML = year + 1;
       this.now_prop_year = year;
       this.now_prop_month = month;
+
+      
 
       if (
         ((year % 4 == 0 && year % 100 != 0) || year % 400 == 0) &&
@@ -163,10 +150,10 @@ export default {
       const idx_arr = index.split("-");
       const item = this.calendar_item_arr
         .reduce((now, x) => {
-          x.forEach((e) => now.push(e));
+          x.forEach(e => now.push(e));
           return now;
         }, [])
-        .find((day) => day.today);
+        .find(day => day.today);
 
       if (item !== undefined) item.today = false;
 
@@ -180,7 +167,7 @@ export default {
         "loadReservationData",
         new Date(`${this.now_prop_year}-${this.now_prop_month + 1}`)
       );
-    },
+    }
   },
   mounted() {
     //start
@@ -188,8 +175,8 @@ export default {
   },
   components: {
     CalendarTdComponent,
-    ReservationButtonComponent,
-  },
+    ReservationButtonComponent
+  }
 };
 </script>
 
