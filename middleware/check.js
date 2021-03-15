@@ -1,7 +1,7 @@
 export default async ({ store, redirect, route }) => {
     let { path } = route;
     const UNSIGNED_USER_ALLOW_PATH = ["/login", "/register"];
-    const SIGNED_USER_ALLOW_PATH = [];
+    const SIGNED_USER_ALLOW_PATH = ["/admin"];
 
     if (!store.state.auth.token || store.state.auth.token == "undefined") {
         if (typeof localStorage === "undefined") {
@@ -32,6 +32,11 @@ export default async ({ store, redirect, route }) => {
 
 
     let SIGN = !(store.state.auth.token === "undefined" || !store.state.auth.token);
+
+    if(path == "/" && store.state.auth.level == 99) {
+        //관리자는 진입시 관리자페이지로
+        return redirect("/admin");
+    }
 
     if (UNSIGNED_USER_ALLOW_PATH.includes(path) && SIGN) {
         alert("로그인하지 않은 유저만 출입 가능합니다.");

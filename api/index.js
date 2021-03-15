@@ -1,6 +1,4 @@
 const express = require('express');
-const http = require('http');
-const { session_secret } = require('./DB/Credential');
 const body_parser = require("body-parser");
 
 Date.prototype.normalization = function () {
@@ -10,7 +8,6 @@ Date.prototype.normalization = function () {
 
 // Create express instance
 const app = express();
-const server = http.createServer(app);
 
 app.use(body_parser.json());
 app.use(body_parser.urlencoded({ extended: true }));
