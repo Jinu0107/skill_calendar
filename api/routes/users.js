@@ -45,5 +45,13 @@ router.post("/access_check", async (req, res) => {
   res.json(result);
 });
 
+/* select users */
+router.get("/users", async (req, res) => {
+  const user_list = await pool.query("SELECT * FROM skill_users WHERE user_level = 0");
+  console.log(user_list[0]);
+});
+
+
+
 
 module.exports = router
