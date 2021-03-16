@@ -45,11 +45,37 @@ router.post("/access_check", async (req, res) => {
   res.json(result);
 });
 
-/* select users */
-router.get("/users", async (req, res) => {
+/* select regist list */
+router.get("/regist-list", async (req, res) => {
   const user_list = await pool.query("SELECT * FROM skill_users WHERE user_level = 0");
-  console.log(user_list[0]);
+  res.json(user_list[0]);
 });
+
+
+router.post("/success", async (req, res) => {
+  let token = await checkToken(req);
+  if (!token.success || token.user_level != 99) {
+    res.json({ msg: '관리자만 이용할 수 있습니다.', success: false });
+    return;
+  }
+  const { user_id } = req.body;
+  pool.query("UPDATE skill_users SET user_level = 1 , user_max_count = 2 WHERE user_id = ?", [user_id]);
+  res.json({ msg: '성공적으로 승인되었습니다.', success: true })
+
+});
+
+router.post("/return", async (req, res) => {
+  let token = await checkToken(req);
+  if (!token.success || token.user_level != 99) {
+    res.json({ msg: '관리자만 이용할 수 있습니다.', success: false });
+    return;
+  }
+  const { user_id } = req.body;
+  pool.query("DELETE FROM skill_users WHERE user_id = ?", [user_id]);
+  res.json({ msg: '성공적으로 거절되었습니다.', success: true })
+
+});
+
 
 
 

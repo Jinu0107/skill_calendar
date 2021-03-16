@@ -13,7 +13,7 @@
       <regist-list-component />
       <div></div>
       <div></div>
-      <div></div>
+      <user-list-component />
       <div class="add">
         <div class="title">개발자에게 돈을 주세요!</div>
         <div class="text">302-1246-335431 농협 안진우</div>
@@ -26,11 +26,13 @@
 
 <script>
 import RegistListComponent from "@/components/RegistListComponent";
+import UserListComponent from "@/components/UserListComponent";
 
 export default {
   components: {
     RegistListComponent,
-  },
+    UserListComponent
+  }
 };
 </script>
 

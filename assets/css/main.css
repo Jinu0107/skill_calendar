@@ -66,3 +66,9 @@
     justify-content: space-between;
     margin-top: 15px;
 }
+
+.text_over {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+}

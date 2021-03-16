@@ -16,5 +16,18 @@ export default ({ url, $axios, store }) => ({
         let result = await $axios.get(url.get_reservation_list + "/" + model.date);
         return result;
     },
+    async getRegistList() {
+        let result = await $axios.get(url.regist_list);
+        return result;
+    },
+    async usetSuccess(model) {
+        let result = await $axios.post(url.user_success , model);
+        return result;
+    },
+    
+    async userReturn(model) {
+        let result = await $axios.post(url.user_return , model);
+        return result;
+    },
     HOST: url.HOST
 });

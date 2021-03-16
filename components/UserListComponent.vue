@@ -1,29 +1,20 @@
 <template>
   <div>
-    <admin-title-component :prop__title="'유저 승인'" :prop__icon="'fas fa-user'" />
+    <admin-title-component :prop__title="'유저 목록'" :prop__icon="'fas fa-users'" />
     <div class="user_list">
-      <regist-item-component v-for="(item , index) in regist_list" :key="index" :prop__data="item" />
+      <user-item-component />
     </div>
   </div>
 </template>
 
 <script>
 import AdminTitleComponent from "@/components/AdminTitleComponent";
-import RegistItemComponent from "@/components/RegistItemComponent";
+import UserItemComponent from "@/components/UserItemComponent";
 
 export default {
-  async mounted() {
-    const { data } = await this.$api.auth.getRegistList();
-    this.regist_list = data;
-  },
-  data() {
-    return {
-      regist_list: []
-    };
-  },
   components: {
     AdminTitleComponent,
-    RegistItemComponent
+    UserItemComponent
   }
 };
 </script>
@@ -35,6 +26,20 @@ export default {
   padding: 0px 15px;
   overflow-y: scroll;
 }
+
+.info {
+  display: flex;
+  margin: 5px 0px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #a1a8b4;
+}
+
+.name {
+    width: 140px;
+}
+
+
 
 .user_list::-webkit-scrollbar {
   width: 4px;
