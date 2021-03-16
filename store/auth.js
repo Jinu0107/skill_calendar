@@ -12,14 +12,12 @@ export const mutations = {
         state.level = state.level;
         state.name = state.name;
         state.img = state.img;
-
         localStorage.token = token;
     },
 
     logout(state) {
         state.token = null;
         state.level = 0;
-
         delete localStorage.token;
         this.$axios.defaults.headers.common['Authorization'] = state.token;
     },

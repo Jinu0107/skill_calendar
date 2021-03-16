@@ -3,16 +3,16 @@
     <div class="info">
       <img src="/imgs/user.png" alt />
       <div class="text">
-        <div class="name text_over">{{prop__item.user_name}}</div>
-        <p class="id text_over">{{prop__item.user_id}}</p>
+        <div class="name text_over" :title="prop__item.user_name">{{ prop__item.user_name }}</div>
+        <p class="id text_over" :title="prop__item.user_id">{{ prop__item.user_id }}</p>
       </div>
     </div>
-    <div class="group" :class="{normal : is_normal}" @change="changeClass">
-      <select class="class" ref="class">
+    <div class="group" :class="{ normal: is_normal }">
+      <select class="class" ref="class" @change="changeClass">
         <option value="2" :selected="prop__item.user_level == 2">정규반</option>
         <option value="1" :selected="prop__item.user_level == 1">일반반</option>
       </select>
-      <div class="count">남은휴가 : 4개</div>
+      <div class="count">남은휴가 : {{ prop__item.left_count }}개</div>
     </div>
   </div>
 </template>
@@ -21,20 +21,26 @@
 export default {
   data() {
     return {
-      is_normal: false
+      is_normal: false,
     };
   },
   methods: {
-    changeClass() {
+    async changeClass() {
       this.is_normal = this.$refs.class.value == 1;
-    }
+      let model = {
+        user_id: this.prop__item.user_id,
+        user_level: this.$refs.class.value,
+      };
+      const { data } = await this.$api.auth.changeClass(model);
+      this.$bus.$emit('admin-init');
+    },
   },
   mounted() {
     this.is_normal = this.$refs.class.value == 1;
   },
   props: {
-    prop__item: { type: Object, default: {} }
-  }
+    prop__item: { type: Object, default: {} },
+  },
 };
 </script>
 
@@ -62,17 +68,19 @@ export default {
 
 .text {
   margin-left: 10px;
-  width: 100%;
+  width: 50px;
 }
 
 .name {
   font-weight: 500;
   font-size: 0.95rem;
+  width: 100%;
 }
 
 .id {
   font-size: 0.75rem;
   color: #ccc;
+  width: 100%;
 }
 
 .group {

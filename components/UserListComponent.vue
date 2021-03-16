@@ -1,8 +1,15 @@
 <template>
   <div>
-    <admin-title-component :prop__title="'유저 목록'" :prop__icon="'fas fa-users'" />
+    <admin-title-component
+      :prop__title="'유저 목록'"
+      :prop__icon="'fas fa-users'"
+    />
     <div class="user_list">
-      <user-item-component v-for="(item, index) in user_list" :key="index" :prop__item="item" />
+      <user-item-component
+        v-for="(item, index) in user_list"
+        :key="index"
+        :prop__item="item"
+      />
     </div>
   </div>
 </template>
@@ -14,17 +21,25 @@ import UserItemComponent from "@/components/UserItemComponent";
 export default {
   data() {
     return {
-      user_list: []
+      user_list: [],
     };
   },
-  async mounted() {
-    const { data } = await this.$api.auth.getUserList();
-    this.user_list = data;
+  mounted() {
+    this.loadUserList();
+    this.$bus.$on("admin-init", () => {
+      this.loadUserList();
+    });
+  },
+  methods: {
+    async loadUserList() {
+      const { data } = await this.$api.auth.getUserList();
+      this.user_list = data;
+    },
   },
   components: {
     AdminTitleComponent,
-    UserItemComponent
-  }
+    UserItemComponent,
+  },
 };
 </script>
 

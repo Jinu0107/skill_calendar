@@ -77,8 +77,22 @@ router.post("/return", async (req, res) => {
 });
 
 router.get("/users", async (req, res) => {
-  let users = await pool.query("SELECT * FROM skill_users WHERE user_level = 1 OR user_level = 2");
+  let date = new Date().normalization();
+  let users = await pool.query("SELECT user.* , (user.user_max_count - (SELECT count(*) FROM skill_schedule as sch WHERE sch.user_id = user.user_id AND sch.date LIKE ?) ) as 'left_count' FROM `skill_users` as user WHERE user.user_level IN(1,2)", [`${date.getFullYear()}-${date.getMonth() + 1}%`]);
   res.json(users[0]);
+});
+
+router.post("/change", async (req, res) => {
+  let token = await checkToken(req);
+  if (!token.success || token.user_level != 99) {
+    res.json({ msg: '관리자만 이용할 수 있습니다.', success: false });
+    return;
+  }
+
+  const { user_id, user_level } = req.body;
+  pool.query("UPDATE skill_users SET user_level = ? , user_max_count = ? WHERE user_id = ?", [user_level, user_level == 1 ? 2 : 4, user_id]);
+  res.json({ msg: '성공적으로 수정되었습니다.', success: true })
+
 });
 
 

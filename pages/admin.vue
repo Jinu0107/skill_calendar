@@ -17,17 +17,21 @@
 import AdminSidebarComponent from "@/components/AdminSidebarComponent";
 import AdminDashboardComponent from "@/components/AdminDashboardComponent";
 
-
 export default {
   components: {
     AdminSidebarComponent,
     AdminDashboardComponent,
+  },
+  mounted() {
+    this.$bus.$on("admin-init", () => {
+      console.log("init");
+    });
   },
 };
 </script>
 
 <style scoped>
 .admin_container {
-    display: flex;
+  display: flex;
 }
 </style>

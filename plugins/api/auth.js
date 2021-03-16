@@ -24,13 +24,16 @@ export default ({ url, $axios, store }) => ({
         let result = await $axios.post(url.user_success, model);
         return result;
     },
-
     async userReturn(model) {
         let result = await $axios.post(url.user_return, model);
         return result;
     },
     async getUserList() {
         let result = await $axios.get(url.user_list);
+        return result;
+    },
+    async changeClass(model) {
+        let result = await $axios.post(url.change_class, model);
         return result;
     },
     HOST: url.HOST

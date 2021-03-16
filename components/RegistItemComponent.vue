@@ -3,8 +3,12 @@
     <div class="info">
       <img src="/imgs/user.png" alt />
       <div class="text">
-        <div class="name text_over" :title="prop__data.user_name">{{prop__data.user_name}}</div>
-        <p class="id text_over" :title="prop__data.user_id">{{prop__data.user_id}}</p>
+        <div class="name text_over" :title="prop__data.user_name">
+          {{ prop__data.user_name }}
+        </div>
+        <p class="id text_over" :title="prop__data.user_id">
+          {{ prop__data.user_id }}
+        </p>
       </div>
     </div>
     <div class="btns">
@@ -21,16 +25,18 @@ export default {
       let model = { user_id: this.prop__data.user_id };
       const { data } = await this.$api.auth.usetSuccess(model);
       alert(data.msg);
+      this.$bus.$emit("admin-init");
     },
     async userReturn() {
       let model = { user_id: this.prop__data.user_id };
       const { data } = await this.$api.auth.userReturn(model);
       alert(data.msg);
-    }
+      this.$bus.$emit("admin-init");
+    },
   },
   props: {
-    prop__data: { type: Object, default: {} }
-  }
+    prop__data: { type: Object, default: {} },
+  },
 };
 </script>
 

@@ -1,8 +1,15 @@
 <template>
   <div>
-    <admin-title-component :prop__title="'유저 승인'" :prop__icon="'fas fa-user'" />
+    <admin-title-component
+      :prop__title="'유저 승인'"
+      :prop__icon="'fas fa-user'"
+    />
     <div class="user_list">
-      <regist-item-component v-for="(item , index) in regist_list" :key="index" :prop__data="item" />
+      <regist-item-component
+        v-for="(item, index) in regist_list"
+        :key="index"
+        :prop__data="item"
+      />
     </div>
   </div>
 </template>
@@ -12,19 +19,27 @@ import AdminTitleComponent from "@/components/AdminTitleComponent";
 import RegistItemComponent from "@/components/RegistItemComponent";
 
 export default {
-  async mounted() {
-    const { data } = await this.$api.auth.getRegistList();
-    this.regist_list = data;
+  mounted() {
+    this.loadRegistList();
+     this.$bus.$on("admin-init", () => {
+      this.loadRegistList();
+    });
   },
   data() {
     return {
-      regist_list: []
+      regist_list: [],
     };
+  },
+  methods: {
+    async loadRegistList() {
+      const { data } = await this.$api.auth.getRegistList();
+      this.regist_list = data;
+    },
   },
   components: {
     AdminTitleComponent,
-    RegistItemComponent
-  }
+    RegistItemComponent,
+  },
 };
 </script>
 
