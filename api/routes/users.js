@@ -76,6 +76,11 @@ router.post("/return", async (req, res) => {
 
 });
 
+router.get("/users", async (req, res) => {
+  let users = await pool.query("SELECT * FROM skill_users WHERE user_level = 1 OR user_level = 2");
+  res.json(users[0]);
+});
+
 
 
 

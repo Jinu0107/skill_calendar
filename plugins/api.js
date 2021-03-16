@@ -14,6 +14,7 @@ export default function ({ $axios, store }) {
         regist_list : `${HOST}/api/user/regist-list`,
         user_success : `${HOST}/api/user/success`,
         user_return : `${HOST}/api/user/return`,
+        user_list : `${HOST}/api/user/users`,
     }
 
     const option = {

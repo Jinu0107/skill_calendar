@@ -21,12 +21,16 @@ export default ({ url, $axios, store }) => ({
         return result;
     },
     async usetSuccess(model) {
-        let result = await $axios.post(url.user_success , model);
+        let result = await $axios.post(url.user_success, model);
         return result;
     },
-    
+
     async userReturn(model) {
-        let result = await $axios.post(url.user_return , model);
+        let result = await $axios.post(url.user_return, model);
+        return result;
+    },
+    async getUserList() {
+        let result = await $axios.get(url.user_list);
         return result;
     },
     HOST: url.HOST

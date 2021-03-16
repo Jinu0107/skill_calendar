@@ -2,7 +2,7 @@
   <div>
     <admin-title-component :prop__title="'유저 목록'" :prop__icon="'fas fa-users'" />
     <div class="user_list">
-      <user-item-component />
+      <user-item-component v-for="(item, index) in user_list" :key="index" :prop__item="item" />
     </div>
   </div>
 </template>
@@ -12,6 +12,15 @@ import AdminTitleComponent from "@/components/AdminTitleComponent";
 import UserItemComponent from "@/components/UserItemComponent";
 
 export default {
+  data() {
+    return {
+      user_list: []
+    };
+  },
+  async mounted() {
+    const { data } = await this.$api.auth.getUserList();
+    this.user_list = data;
+  },
   components: {
     AdminTitleComponent,
     UserItemComponent
@@ -36,10 +45,8 @@ export default {
 }
 
 .name {
-    width: 140px;
+  width: 140px;
 }
-
-
 
 .user_list::-webkit-scrollbar {
   width: 4px;

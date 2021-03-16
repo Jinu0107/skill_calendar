@@ -3,14 +3,14 @@
     <div class="info">
       <img src="/imgs/user.png" alt />
       <div class="text">
-        <div class="name text_over">안진우</div>
-        <p class="id text_over">wlsdn030107</p>
+        <div class="name text_over">{{prop__item.user_name}}</div>
+        <p class="id text_over">{{prop__item.user_id}}</p>
       </div>
     </div>
-    <div class="group">
-      <select class="class">
-          <option value="2">정규반</option>
-          <option value="1">일반반</option>
+    <div class="group" :class="{normal : is_normal}" @change="changeClass">
+      <select class="class" ref="class">
+        <option value="2" :selected="prop__item.user_level == 2">정규반</option>
+        <option value="1" :selected="prop__item.user_level == 1">일반반</option>
       </select>
       <div class="count">남은휴가 : 4개</div>
     </div>
@@ -18,7 +18,24 @@
 </template>
 
 <script>
-export default {};
+export default {
+  data() {
+    return {
+      is_normal: false
+    };
+  },
+  methods: {
+    changeClass() {
+      this.is_normal = this.$refs.class.value == 1;
+    }
+  },
+  mounted() {
+    this.is_normal = this.$refs.class.value == 1;
+  },
+  props: {
+    prop__item: { type: Object, default: {} }
+  }
+};
 </script>
 
 <style scoped>
@@ -63,6 +80,15 @@ export default {};
   border-radius: 8px;
   overflow: hidden;
   border: 2px solid var(--main-blue-color);
+  transition: 0.2s;
+}
+
+.group.normal {
+  border: 2px solid #42c3ba;
+}
+
+.group.normal > .class {
+  background-color: #42c3ba;
 }
 
 .class {
@@ -72,6 +98,12 @@ export default {};
   font-size: 0.8rem;
   font-weight: 500;
   border: none;
+  transition: 0.2s;
+}
+
+.class > option {
+  background-color: #fff;
+  color: #000;
 }
 
 .count {
