@@ -11,15 +11,15 @@
     </div>
     <div class="grid">
       <regist-list-component />
-      <div></div>
-      <div></div>
+      <reservation-management-component />
+      <div>일정</div>
       <user-list-component />
       <div class="add">
         <div class="title">개발자에게 돈을 주세요!</div>
         <div class="text">302-1246-335431 농협 안진우</div>
       </div>
-      <div></div>
-      <div></div>
+      <div>알림</div>
+      <div>일정등록</div>
     </div>
   </div>
 </template>
@@ -27,12 +27,14 @@
 <script>
 import RegistListComponent from "@/components/RegistListComponent";
 import UserListComponent from "@/components/UserListComponent";
+import ReservationManagementComponent from "@/components/ReservationManagementComponent";
 
 export default {
   components: {
     RegistListComponent,
-    UserListComponent
-  }
+    UserListComponent,
+    ReservationManagementComponent,
+  },
 };
 </script>
 
