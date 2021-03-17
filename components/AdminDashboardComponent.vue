@@ -11,7 +11,7 @@
     </div>
     <div class="grid">
       <regist-list-component />
-      <div>일정</div>
+      <schedule-list-component />
       <user-list-component />
       <div>일정등록</div>
       <reservation-management-component />
@@ -28,18 +28,20 @@
 import RegistListComponent from "@/components/RegistListComponent";
 import UserListComponent from "@/components/UserListComponent";
 import ReservationManagementComponent from "@/components/ReservationManagementComponent";
+import ScheduleListComponent from "@/components/ScheduleListComponent";
 
 export default {
-  methods : {
+  methods: {
     reload() {
       this.$bus.$emit("admin-init");
-    }
+    },
   },
   components: {
     RegistListComponent,
     UserListComponent,
-    ReservationManagementComponent
-  }
+    ReservationManagementComponent,
+    ScheduleListComponent,
+  },
 };
 </script>
 

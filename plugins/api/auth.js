@@ -38,7 +38,6 @@ export default ({ url, $axios, store }) => ({
     },
     async getReservationRequestList() {
         let result = await $axios.get(url.reservation_request_list);
-        console.log(result);
         return result;
     },
     async reservationSuccess(model) {
@@ -47,6 +46,10 @@ export default ({ url, $axios, store }) => ({
     },
     async reservationReturn(model) {
         let result = await $axios.post(url.reservation_return, model);
+        return result;
+    },
+    async getScheduleList() {
+        let result = await $axios.get(url.schedule_list);
         return result;
     },
     HOST: url.HOST

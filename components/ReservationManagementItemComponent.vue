@@ -1,8 +1,8 @@
 <template>
   <div class="item">
     <user-info-component :prop__item="prop__item" />
-    <div class="text text_over">{{prop__item.info}}</div>
-    <div class="date text_over">{{prop__item.date}}</div>
+    <div class="text text_over">{{ prop__item.info }}</div>
+    <div class="date text_over">{{ prop__item.date }}</div>
     <div class="btns">
       <div class="return" @click="returnReservation">거절</div>
       <div class="success" @click="successReservation">승인</div>
@@ -24,17 +24,17 @@ export default {
       let model = { idx: this.prop__item.idx };
       const { data } = await this.$api.auth.reservationReturn(model);
       this.$bus.$emit("admin-init");
-    }
+    },
   },
   props: {
     prop__item: {
       type: Object,
-      default: { user_name: "안진우", user_id: "wlsdn030107" }
-    }
+      default: {},
+    },
   },
   components: {
-    UserInfoComponent
-  }
+    UserInfoComponent,
+  },
 };
 </script>
 

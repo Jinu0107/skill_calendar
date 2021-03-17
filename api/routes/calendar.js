@@ -76,7 +76,7 @@ router.post("/reservation-success", async (req, res) => {
         return;
     }
     const { idx } = req.body;
-    
+
     pool.query("UPDATE skill_schedule SET level = 1 WHERE idx = ?", [idx]);
     res.json({ msg: '성공적으로 승인되었습니다.', success: true });
 });
@@ -94,6 +94,11 @@ router.post("/reservation-return", async (req, res) => {
     pool.query("DELETE FROM skill_schedule WHERE idx = ?", [idx]);
     res.json({ msg: '성공적으로 거절되었습니다.', success: true });
 
+});
+
+router.get("/schedule-list", async (req, res) => {
+    let result = await pool.query("SELECT s.* , u.user_name FROM skill_schedule s , skill_users u WHERE level != 0 AND u.user_id = s.user_id");
+    res.json(result[0]);
 });
 
 

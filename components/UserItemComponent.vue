@@ -1,8 +1,6 @@
 <template>
   <div class="item">
-    <user-info-component
-    :prop__item="prop__item"
-    />
+    <user-info-component :prop__item="prop__item" />
     <div class="group" :class="{ normal: is_normal }">
       <select class="class" ref="class" @change="changeClass">
         <option value="2" :selected="prop__item.user_level == 2">정규반</option>
@@ -19,7 +17,7 @@ import UserInfoComponent from "@/components/UserInfoComponent";
 export default {
   data() {
     return {
-      is_normal: false
+      is_normal: false,
     };
   },
   methods: {
@@ -27,21 +25,21 @@ export default {
       this.is_normal = this.$refs.class.value == 1;
       let model = {
         user_id: this.prop__item.user_id,
-        user_level: this.$refs.class.value
+        user_level: this.$refs.class.value,
       };
       const { data } = await this.$api.auth.changeClass(model);
       this.$bus.$emit("admin-init");
-    }
+    },
   },
   mounted() {
     this.is_normal = this.$refs.class.value == 1;
   },
   props: {
-    prop__item: { type: Object, default: {} }
+    prop__item: { type: Object, default: {} },
   },
   components: {
-    UserInfoComponent
-  }
+    UserInfoComponent,
+  },
 };
 </script>
 
