@@ -64,4 +64,38 @@ router.get("/load/:date", async (req, res) => {
 });
 
 
+router.get("/reservation-request-list", async (req, res) => {
+    let result = await pool.query("SELECT s.* , u.user_name FROM skill_schedule s , skill_users u WHERE level = 0 AND u.user_id = s.user_id");
+    res.json(result[0]);
+});
+
+router.post("/reservation-success", async (req, res) => {
+    let token = await checkToken(req);
+    if (!token.success || token.user_level != 99) {
+        res.json({ msg: '관리자만 이용할 수 있습니다.', success: false });
+        return;
+    }
+    const { idx } = req.body;
+    console.log(idx);
+    pool.query("UPDATE skill_schedule SET level = 1 WHERE idx = ?", [idx]);
+    res.json({ msg: '성공적으로 승인되었습니다.', success: true });
+});
+
+router.post("/reservation-return", async (req, res) => {
+    let token = await checkToken(req);
+    if (!token.success || token.user_level != 99) {
+        res.json({ msg: '관리자만 이용할 수 있습니다.', success: false });
+        return;
+    }
+
+    const { idx } = req.body;
+
+
+    pool.query("DELETE FROM skill_schedule WHERE idx = ?", [idx]);
+    res.json({ msg: '성공적으로 거절되었습니다.', success: true });
+
+});
+
+
+
 module.exports = router

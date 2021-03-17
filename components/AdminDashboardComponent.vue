@@ -11,15 +11,15 @@
     </div>
     <div class="grid">
       <regist-list-component />
-      <reservation-management-component />
       <div>일정</div>
       <user-list-component />
+      <div>일정등록</div>
+      <reservation-management-component />
+      <div>알림</div>
       <div class="add">
         <div class="title">개발자에게 돈을 주세요!</div>
         <div class="text">302-1246-335431 농협 안진우</div>
       </div>
-      <div>알림</div>
-      <div>일정등록</div>
     </div>
   </div>
 </template>
@@ -33,8 +33,8 @@ export default {
   components: {
     RegistListComponent,
     UserListComponent,
-    ReservationManagementComponent,
-  },
+    ReservationManagementComponent
+  }
 };
 </script>
 
@@ -111,7 +111,7 @@ export default {
   grid-column-start: 4;
   grid-column-end: 5;
   grid-row-start: 1;
-  grid-row-end: 4;
+  grid-row-end: 3;
 }
 
 .grid > div:nth-child(4) {
@@ -126,6 +126,13 @@ export default {
   grid-column-end: 4;
   grid-row-start: 2;
   grid-row-end: 3;
+}
+
+.grid > div:nth-child(7) {
+  grid-column-start: 3;
+  grid-column-end: 5;
+  grid-row-start: 3;
+  grid-row-end: 4;
 }
 
 .grid > div.add {

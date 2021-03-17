@@ -20,7 +20,7 @@ export default ({ url, $axios, store }) => ({
         let result = await $axios.get(url.regist_list);
         return result;
     },
-    async usetSuccess(model) {
+    async userSuccess(model) {
         let result = await $axios.post(url.user_success, model);
         return result;
     },
@@ -34,6 +34,19 @@ export default ({ url, $axios, store }) => ({
     },
     async changeClass(model) {
         let result = await $axios.post(url.change_class, model);
+        return result;
+    },
+    async getReservationRequestList() {
+        let result = await $axios.get(url.reservation_request_list);
+        console.log(result);
+        return result;
+    },
+    async reservationSuccess(model) {
+        let result = await $axios.post(url.reservation_success, model);
+        return result;
+    },
+    async reservationReturn(model) {
+        let result = await $axios.post(url.reservation_return, model);
         return result;
     },
     HOST: url.HOST

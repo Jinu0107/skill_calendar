@@ -1,12 +1,8 @@
 <template>
   <div class="item">
-    <div class="info">
-      <img src="/imgs/user.png" alt />
-      <div class="text">
-        <div class="name text_over" :title="prop__item.user_name">{{ prop__item.user_name }}</div>
-        <p class="id text_over" :title="prop__item.user_id">{{ prop__item.user_id }}</p>
-      </div>
-    </div>
+    <user-info-component
+    :prop__item="prop__item"
+    />
     <div class="group" :class="{ normal: is_normal }">
       <select class="class" ref="class" @change="changeClass">
         <option value="2" :selected="prop__item.user_level == 2">정규반</option>
@@ -18,10 +14,12 @@
 </template>
 
 <script>
+import UserInfoComponent from "@/components/UserInfoComponent";
+
 export default {
   data() {
     return {
-      is_normal: false,
+      is_normal: false
     };
   },
   methods: {
@@ -29,18 +27,21 @@ export default {
       this.is_normal = this.$refs.class.value == 1;
       let model = {
         user_id: this.prop__item.user_id,
-        user_level: this.$refs.class.value,
+        user_level: this.$refs.class.value
       };
       const { data } = await this.$api.auth.changeClass(model);
-      this.$bus.$emit('admin-init');
-    },
+      this.$bus.$emit("admin-init");
+    }
   },
   mounted() {
     this.is_normal = this.$refs.class.value == 1;
   },
   props: {
-    prop__item: { type: Object, default: {} },
+    prop__item: { type: Object, default: {} }
   },
+  components: {
+    UserInfoComponent
+  }
 };
 </script>
 
@@ -52,35 +53,6 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
-}
-
-.info {
-  height: 100%;
-  display: flex;
-  align-items: center;
-}
-
-.info > img {
-  width: 35px;
-  height: 35px;
-  object-fit: cover;
-}
-
-.text {
-  margin-left: 10px;
-  width: 50px;
-}
-
-.name {
-  font-weight: 500;
-  font-size: 0.95rem;
-  width: 100%;
-}
-
-.id {
-  font-size: 0.75rem;
-  color: #ccc;
-  width: 100%;
 }
 
 .group {

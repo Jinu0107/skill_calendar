@@ -1,16 +1,6 @@
 <template>
   <div class="item">
-    <div class="info">
-      <img src="/imgs/user.png" alt />
-      <div class="text">
-        <div class="name text_over" :title="prop__data.user_name">
-          {{ prop__data.user_name }}
-        </div>
-        <p class="id text_over" :title="prop__data.user_id">
-          {{ prop__data.user_id }}
-        </p>
-      </div>
-    </div>
+    <user-info-component :prop__item="prop__data" />
     <div class="btns">
       <div class="return" @click="userReturn">거절</div>
       <div class="success" @click="userSuccess">승인</div>
@@ -19,11 +9,13 @@
 </template>
 
 <script>
+import UserInfoComponent from "@/components/UserInfoComponent";
+
 export default {
   methods: {
     async userSuccess() {
       let model = { user_id: this.prop__data.user_id };
-      const { data } = await this.$api.auth.usetSuccess(model);
+      const { data } = await this.$api.auth.userSuccess(model);
       alert(data.msg);
       this.$bus.$emit("admin-init");
     },
@@ -32,11 +24,14 @@ export default {
       const { data } = await this.$api.auth.userReturn(model);
       alert(data.msg);
       this.$bus.$emit("admin-init");
-    },
+    }
   },
   props: {
-    prop__data: { type: Object, default: {} },
+    prop__data: { type: Object, default: {} }
   },
+  components: {
+    UserInfoComponent
+  }
 };
 </script>
 
@@ -48,34 +43,6 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
-}
-
-.info {
-  height: 100%;
-  display: flex;
-  align-items: center;
-}
-
-.info > img {
-  width: 35px;
-  height: 35px;
-  object-fit: cover;
-}
-
-.text {
-  margin-left: 10px;
-}
-
-.name {
-  font-weight: 500;
-  font-size: 0.95rem;
-  width: 100px;
-}
-
-.id {
-  font-size: 0.75rem;
-  color: #ccc;
-  width: 100px;
 }
 
 .btns {

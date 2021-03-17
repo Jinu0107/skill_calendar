@@ -51,18 +51,6 @@ export default {
   overflow-y: scroll;
 }
 
-.info {
-  display: flex;
-  margin: 5px 0px;
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: #a1a8b4;
-}
-
-.name {
-  width: 140px;
-}
-
 .user_list::-webkit-scrollbar {
   width: 4px;
 }
