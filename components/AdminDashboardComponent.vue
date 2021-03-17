@@ -5,7 +5,7 @@
         <i class="fas fa-list-alt"></i>
         <span>대시보드</span>
       </div>
-      <div class="refresh">
+      <div class="refresh" @click="reload">
         <i class="fas fa-redo"></i>
       </div>
     </div>
@@ -16,7 +16,7 @@
       <div>일정등록</div>
       <reservation-management-component />
       <div>알림</div>
-      <div class="add">
+      <div class="ad">
         <div class="title">개발자에게 돈을 주세요!</div>
         <div class="text">302-1246-335431 농협 안진우</div>
       </div>
@@ -30,6 +30,11 @@ import UserListComponent from "@/components/UserListComponent";
 import ReservationManagementComponent from "@/components/ReservationManagementComponent";
 
 export default {
+  methods : {
+    reload() {
+      this.$bus.$emit("admin-init");
+    }
+  },
   components: {
     RegistListComponent,
     UserListComponent,
@@ -135,19 +140,19 @@ export default {
   grid-row-end: 4;
 }
 
-.grid > div.add {
+.grid > div.ad {
   padding: 20px;
   background: linear-gradient(#0189e7, var(--main-blue-color));
 }
 
-.grid > div.add > .title {
+.grid > div.ad > .title {
   color: #fff;
   font-size: 1.4rem;
   font-weight: 600;
   margin-bottom: 10px;
 }
 
-.grid > div.add > .text {
+.grid > div.ad > .text {
   font-size: 0.95rem;
   color: #fff;
 }

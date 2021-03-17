@@ -76,7 +76,7 @@ router.post("/reservation-success", async (req, res) => {
         return;
     }
     const { idx } = req.body;
-    console.log(idx);
+    
     pool.query("UPDATE skill_schedule SET level = 1 WHERE idx = ?", [idx]);
     res.json({ msg: '성공적으로 승인되었습니다.', success: true });
 });
