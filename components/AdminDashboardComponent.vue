@@ -13,7 +13,7 @@
       <regist-list-component />
       <schedule-list-component />
       <user-list-component />
-      <div>일정등록</div>
+      <schedule-register-component />
       <reservation-management-component />
       <div>알림</div>
       <div class="ad">
@@ -29,6 +29,7 @@ import RegistListComponent from "@/components/RegistListComponent";
 import UserListComponent from "@/components/UserListComponent";
 import ReservationManagementComponent from "@/components/ReservationManagementComponent";
 import ScheduleListComponent from "@/components/ScheduleListComponent";
+import ScheduleRegisterComponent from "@/components/ScheduleRegisterComponent";
 
 export default {
   methods: {
@@ -41,6 +42,7 @@ export default {
     UserListComponent,
     ReservationManagementComponent,
     ScheduleListComponent,
+    ScheduleRegisterComponent
   },
 };
 </script>
