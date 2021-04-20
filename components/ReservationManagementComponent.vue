@@ -1,6 +1,9 @@
 <template>
   <div>
-    <admin-title-component :prop__title="'휴가 요청'" :prop__icon="'fas fa-calendar'" />
+    <admin-title-component
+      :prop__title="'휴가 요청'"
+      :prop__icon="'fas fa-calendar'"
+    />
     <div class="menu_title">
       <p class="name">이름</p>
       <p class="text">사유</p>
@@ -9,7 +12,7 @@
     </div>
     <div class="item_list">
       <reservation-management-item-component
-        v-for="(item , index) in reservation_list"
+        v-for="(item, index) in reservation_list"
         :key="index"
         :prop__item="item"
       />
@@ -24,14 +27,14 @@ import ReservationManagementItemComponent from "@/components/ReservationManageme
 export default {
   data() {
     return {
-      reservation_list: []
+      reservation_list: [],
     };
   },
   methods: {
     async getReservationRequestList() {
       const { data } = await this.$api.auth.getReservationRequestList();
       this.reservation_list = data;
-    }
+    },
   },
   mounted() {
     this.getReservationRequestList();
@@ -41,8 +44,8 @@ export default {
   },
   components: {
     AdminTitleComponent,
-    ReservationManagementItemComponent
-  }
+    ReservationManagementItemComponent,
+  },
 };
 </script>
 

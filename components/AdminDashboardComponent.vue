@@ -13,9 +13,9 @@
       <regist-list-component />
       <schedule-list-component />
       <user-list-component />
-      <schedule-register-component />
-      <reservation-management-component />
       <div>알림</div>
+      <reservation-management-component />
+      <schedule-register-component />
       <div class="ad">
         <div class="title">개발자에게 돈을 주세요!</div>
         <div class="text">302-1246-335431 농협 안진우</div>
@@ -42,7 +42,7 @@ export default {
     UserListComponent,
     ReservationManagementComponent,
     ScheduleListComponent,
-    ScheduleRegisterComponent
+    ScheduleRegisterComponent,
   },
 };
 </script>
