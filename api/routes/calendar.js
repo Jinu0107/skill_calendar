@@ -56,6 +56,7 @@ router.post('/reservation', async (req, res) => {
 
 });
 
+// 특정 년-월 의 일정 불러오기
 router.get("/load/:date", async (req, res) => {
     const date = req.params.date;
     //date : 2020-12
@@ -63,12 +64,13 @@ router.get("/load/:date", async (req, res) => {
     res.json(result[0]);
 });
 
-
+// 요청된 휴가 목록 불러오기
 router.get("/reservation-request-list", async (req, res) => {
     let result = await pool.query("SELECT s.* , u.user_name FROM skill_schedule s , skill_users u WHERE level = 0 AND u.user_id = s.user_id");
     res.json(result[0]);
 });
 
+// 휴가 승인하기
 router.post("/reservation-success", async (req, res) => {
     let token = await checkToken(req);
     if (!token.success || token.user_level != 99) {
@@ -81,6 +83,7 @@ router.post("/reservation-success", async (req, res) => {
     res.json({ msg: '성공적으로 승인되었습니다.', success: true });
 });
 
+// 휴가 거절하기
 router.post("/reservation-return", async (req, res) => {
     let token = await checkToken(req);
     if (!token.success || token.user_level != 99) {
@@ -96,9 +99,32 @@ router.post("/reservation-return", async (req, res) => {
 
 });
 
+// 모든 일정 목록 불러오기
 router.get("/schedule-list", async (req, res) => {
-    let result = await pool.query("SELECT s.* , u.user_name FROM skill_schedule s , skill_users u WHERE level != 0 AND u.user_id = s.user_id");
+    let result = await pool.query("SELECT s.* , u.user_name FROM skill_schedule s , skill_users u WHERE level != 0 AND u.user_id = s.user_id ORDER BY date");
     res.json(result[0]);
+});
+
+
+// 관리자 일정 등록
+router.post("/schedule-register", async (req, res) => {
+    let token = await checkToken(req);
+    if (!token.success || token.user_level != 99) {
+        res.json({ msg: '관리자만 이용할 수 있습니다.', success: false });
+        return;
+    }
+
+    const { date, info } = req.body;
+    let sql = "INSERT INTO `skill_schedule`(`idx`, `user_id`, `date`, `info`, `level`) VALUES (?,?,?,?,?)";
+    let datas = [
+        null,
+        'admin',
+        date,
+        info,
+        2
+    ];
+    pool.query(sql, datas);
+    res.json({ msg: '성공적으로 등록되었습니다.', success: true });
 });
 
 

@@ -19,7 +19,8 @@ export default function ({ $axios, store }) {
         reservation_request_list: `${HOST}/api/calendar/reservation-request-list`,
         reservation_success: `${HOST}/api/calendar/reservation-success`,
         reservation_return: `${HOST}/api/calendar/reservation-return`,
-        schedule_list : `${HOST}/api/calendar/schedule-list`,
+        schedule_list: `${HOST}/api/calendar/schedule-list`,
+        schedule_register: `${HOST}/api/calendar/schedule-register`
     }
 
     const option = {

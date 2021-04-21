@@ -52,5 +52,10 @@ export default ({ url, $axios, store }) => ({
         let result = await $axios.get(url.schedule_list);
         return result;
     },
+
+    async scheduleRegister(model) {
+        let result = await $axios.post(url.schedule_register , model);
+        return result
+    },
     HOST: url.HOST
 });

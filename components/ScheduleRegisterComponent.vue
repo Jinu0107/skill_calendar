@@ -1,25 +1,30 @@
 <template>
   <div class="register_item">
-    <admin-title-component
-      :prop__title="'일정 등록'"
-      :prop__icon="'fas fa-calendar-plus'"
-    />
+    <admin-title-component :prop__title="'일정 등록'" :prop__icon="'fas fa-calendar-plus'" />
     <div class="form">
       <div class="menu_title">일정을 등록할 날짜와 사유를 입력해주세요</div>
-      <input type="date" class="input_date" />
-      <textarea class="input_info"></textarea>
+      <input ref="date_input" type="date" class="date_input" />
+      <textarea ref="info_input" class="info_input"></textarea>
     </div>
-    <div class="register"
-    :click="scheduleRegister"
-    >등록 하기</div>
+    <div class="register" @click="scheduleRegister">등록 하기</div>
   </div>
 </template>
 
 <script>
 export default {
-  methods : {
-    scheduleRegister() {
-      
+  methods: {
+    async scheduleRegister() {
+      let date = this.$refs.date_input.value;
+      let info = this.$refs.info_input.value;
+      console.log(date, info);
+      if ([date, info].map(x => x.trim() === "").includes(true)) {
+        alert("빈 값이 있습니다.");
+        return;
+      }
+      let model = { date, info };
+      let { data } = await this.$api.auth.scheduleRegister(model);
+      alert(data.msg);
+      this.$bus.$emit("admin-init");
     }
   }
 };
@@ -45,7 +50,7 @@ export default {
   margin-bottom: 5px;
 }
 
-.input_date {
+.date_input {
   width: 100%;
   border: none;
   font-size: 0.9rem;
@@ -57,7 +62,7 @@ export default {
   margin-bottom: 5px;
 }
 
-.input_info {
+.info_input {
   width: 100%;
   border: none;
   font-size: 0.9rem;
