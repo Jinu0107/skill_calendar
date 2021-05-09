@@ -1,4 +1,4 @@
-
+const ADMIN_KEY = "a31cf0199103f70f5d4e95270c4e3424";
 
 
 export default {
@@ -23,7 +23,8 @@ export default {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ],
     script: [
-      { src: 'https://use.fontawesome.com/releases/v5.2.0/js/all.js' }
+      { src: 'https://use.fontawesome.com/releases/v5.2.0/js/all.js' },
+      { src: `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${ADMIN_KEY}&libraries=services,clusterer,drawing` }
     ]
 
   },
